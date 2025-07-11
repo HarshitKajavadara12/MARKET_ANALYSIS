@@ -1,0 +1,62 @@
+[Unit]
+Description=Market Research System v1.0 - Data Collection and Analysis Service
+Documentation=https://github.com/your-username/market-research-v1
+After=network-online.target
+Wants=network-online.target
+RequiresMountsFor=/opt/market-research-v1
+
+[Service]
+Type=notify
+User=market-research
+Group=market-research
+WorkingDirectory=/opt/market-research-v1
+Environment=PYTHONPATH=/opt/market-research-v1/src
+Environment=MARKET_RESEARCH_ENV=production
+Environment=MARKET_RESEARCH_CONFIG=/opt/market-research-v1/config
+Environment=MARKET_RESEARCH_DATA=/opt/market-research-v1/data
+Environment=MARKET_RESEARCH_LOGS=/opt/market-research-v1/logs
+ExecStartPre=/bin/mkdir -p /opt/market-research-v1/logs/application
+ExecStartPre=/bin/mkdir -p /opt/market-research-v1/logs/system
+ExecStartPre=/bin/mkdir -p /opt/market-research-v1/data/cache
+ExecStart=/opt/market-research-v1/venv/bin/python -m src.main --daemon
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+TimeoutStartSec=60
+TimeoutStopSec=30
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=market-research
+NotifyAccess=main
+WatchdogSec=60
+
+# Security settings
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/market-research-v1/data
+ReadWritePaths=/opt/market-research-v1/logs
+ReadWritePaths=/opt/market-research-v1/reports
+ReadWritePaths=/opt/market-research-v1/cache
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+MemoryMax=2G
+CPUQuota=150%
+
+[Install]
+WantedBy=multi-user.target
+Alias=market-research.service

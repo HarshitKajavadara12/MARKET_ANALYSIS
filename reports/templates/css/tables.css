@@ -1,0 +1,770 @@
+/* 
+ * Market Research System v1.0 (2022)
+ * Table-specific Stylesheet
+ * For stock data, financial metrics, and market analysis tables
+ */
+
+/* Base Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+    font-size: 13px;
+}
+
+.data-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #e9ecef;
+    text-align: center;
+    color: #495057;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.data-table tbody tr:hover {
+    background-color: #e8f4f8;
+    transition: background-color 0.3s ease;
+}
+
+/* Stock Performance Tables */
+.stock-table {
+    border: 2px solid #3498db;
+}
+
+.stock-table th {
+    background: linear-gradient(45deg, #3498db, #2980b9);
+}
+
+.stock-symbol {
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.stock-name {
+    color: #7f8c8d;
+    font-size: 11px;
+    text-align: left;
+    padding-left: 15px;
+}
+
+/* Price and Performance Styling */
+.price-cell {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.change-positive {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.change-negative {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.change-neutral {
+    color: #95a5a6;
+    font-weight: bold;
+}
+
+.percentage-change {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+}
+
+.percentage-positive {
+    background-color: #27ae60;
+}
+
+.percentage-negative {
+    background-color: #e74c3c;
+}
+
+.percentage-neutral {
+    background-color: #95a5a6;
+}
+
+/* Sector Analysis Tables */
+.sector-table {
+    border: 2px solid #e67e22;
+}
+
+.sector-table th {
+    background: linear-gradient(45deg, #e67e22, #d35400);
+}
+
+.sector-name {
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.sector-performance {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Top Performers Table */
+.top-performers {
+    border: 2px solid #27ae60;
+}
+
+.top-performers th {
+    background: linear-gradient(45deg, #27ae60, #229954);
+}
+
+.performer-rank {
+    background-color: #d5f4e6;
+    color: #155724;
+    font-weight: bold;
+    font-size: 16px;
+    width: 50px;
+}
+
+/* Market Indices Table */
+.indices-table {
+    border: 2px solid #9b59b6;
+}
+
+.indices-table th {
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
+}
+
+.index-name {
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.index-value {
+    font-weight: bold;
+    font-size: 15px;
+    color: #2c3e50;
+}
+
+/* Technical Indicators Table */
+.technical-table {
+    border: 2px solid #f39c12;
+}
+
+.technical-table th {
+    background: linear-gradient(45deg, #f39c12, #e67e22);
+}
+
+.indicator-name {
+    text-align: left;
+    padding-left: 15px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.indicator-value {
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+}
+
+.signal-buy {
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.signal-sell {
+    background-color: #f8d7da;
+    color: #721c24;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.signal-hold {
+    background-color: #fff3cd;
+    color: #856404;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+/* Economic Indicators Table */
+.economic-table {
+    border: 2px solid #17a2b8;
+}
+
+.economic-table th {
+    background: linear-gradient(45deg, #17a2b8, #138496);
+}
+
+.economic-indicator {
+    text-align: left;
+    padding-left: 15px;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+.economic-value {
+    font-weight: bold;
+    color: #495057;
+}
+
+.trend-up::before {
+    content: "↗ ";
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.trend-down::before {
+    content: "↘ ";
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.trend-stable::before {
+    content: "→ ";
+    color: #95a5a6;
+    font-weight: bold;
+}
+
+/* Portfolio Summary Table */
+.portfolio-table {
+    border: 2px solid #6f42c1;
+}
+
+.portfolio-table th {
+    background: linear-gradient(45deg, #6f42c1, #5a2d91);
+}
+
+.portfolio-asset {
+    text-align: left;
+    padding-left: 15px;
+    font-weight: 500;
+}
+
+.allocation-cell {
+    font-weight: bold;
+    color: #495057;
+}
+
+.portfolio-value {
+    font-weight: bold;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+/* Market Summary Table */
+.summary-table {
+    border: 2px solid #fd7e14;
+}
+
+.summary-table th {
+    background: linear-gradient(45deg, #fd7e14, #e8590c);
+}
+
+.summary-metric {
+    text-align: left;
+    padding-left: 15px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.summary-value {
+    font-weight: bold;
+    font-size: 14px;
+    color: #495057;
+}
+
+/* Comparison Tables */
+.comparison-table {
+    border: 2px solid #20c997;
+}
+
+.comparison-table th {
+    background: linear-gradient(45deg, #20c997, #17a085);
+}
+
+.vs-separator {
+    background-color: #f8f9fa;
+    border-left: 3px solid #dee2e6;
+    border-right: 3px solid #dee2e6;
+    font-weight: bold;
+    color: #6c757d;
+}
+
+/* Data Quality Indicators */
+.data-fresh {
+    color: #27ae60;
+    font-size: 10px;
+}
+
+.data-stale {
+    color: #f39c12;
+    font-size: 10px;
+}
+
+.data-old {
+    color: #e74c3c;
+    font-size: 10px;
+}
+
+.data-timestamp {
+    font-size: 10px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Volume and Turnover Styling */
+.volume-cell {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: #495057;
+}
+
+.high-volume {
+    background-color: #fff5f5;
+    color: #c53030;
+}
+
+.low-volume {
+    background-color: #f0fff4;
+    color: #38a169;
+}
+
+/* Market Cap Styling */
+.market-cap {
+    font-weight: bold;
+    font-size: 12px;
+    color: #2d3748;
+}
+
+.large-cap {
+    color: #2b6cb0;
+}
+
+.mid-cap {
+    color: #d69e2e;
+}
+
+.small-cap {
+    color: #e53e3e;
+}
+
+/* Volatility Styling - Completing the cut-off section */
+.volatility-cell {
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.volatility-high {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef5350;
+}
+
+.volatility-medium {
+    background-color: #fff8e1;
+    color: #f57c00;
+    border: 1px solid #ffb74d;
+}
+
+.volatility-low {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #66bb6a;
+}
+
+/* Indian Market Specific Styles */
+.nse-table {
+    border: 2px solid #ff6b35;
+}
+
+.nse-table th {
+    background: linear-gradient(45deg, #ff6b35, #e55100);
+    color: white;
+}
+
+.bse-table {
+    border: 2px solid #1976d2;
+}
+
+.bse-table th {
+    background: linear-gradient(45deg, #1976d2, #0d47a1);
+    color: white;
+}
+
+/* Indian Currency Formatting */
+.inr-price {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.inr-price::before {
+    content: "₹";
+    color: #2e7d32;
+    margin-right: 2px;
+}
+
+.crore-value {
+    font-size: 12px;
+    color: #1565c0;
+}
+
+.crore-value::after {
+    content: " Cr";
+    font-size: 10px;
+    color: #757575;
+}
+
+.lakh-value {
+    font-size: 12px;
+    color: #388e3c;
+}
+
+.lakh-value::after {
+    content: " L";
+    font-size: 10px;
+    color: #757575;
+}
+
+/* Indian Market Indices Styling */
+.sensex-table {
+    border: 2px solid #d32f2f;
+}
+
+.sensex-table th {
+    background: linear-gradient(45deg, #d32f2f, #b71c1c);
+}
+
+.nifty-table {
+    border: 2px solid #1976d2;
+}
+
+.nifty-table th {
+    background: linear-gradient(45deg, #1976d2, #0d47a1);
+}
+
+.bank-nifty-table {
+    border: 2px solid #388e3c;
+}
+
+.bank-nifty-table th {
+    background: linear-gradient(45deg, #388e3c, #1b5e20);
+}
+
+/* Sector-wise Indian Market Styling */
+.it-sector {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+.banking-sector {
+    background-color: #e8f5e8;
+    color: #1b5e20;
+}
+
+.pharma-sector {
+    background-color: #fce4ec;
+    color: #ad1457;
+}
+
+.auto-sector {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.fmcg-sector {
+    background-color: #f3e5f5;
+    color: #4a148c;
+}
+
+.metal-sector {
+    background-color: #efebe9;
+    color: #3e2723;
+}
+
+/* Market Status Indicators */
+.market-open {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.market-closed {
+    background-color: #ffcdd2;
+    color: #b71c1c;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.pre-market {
+    background-color: #fff9c4;
+    color: #f57f17;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+/* Circuit Breaker Indicators */
+.upper-circuit {
+    background-color: #1b5e20;
+    color: white;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+}
+
+.lower-circuit {
+    background-color: #b71c1c;
+    color: white;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+}
+
+/* F&O Data Styling */
+.fo-table {
+    border: 2px solid #7b1fa2;
+}
+
+.fo-table th {
+    background: linear-gradient(45deg, #7b1fa2, #4a148c);
+}
+
+.oi-cell {
+    background-color: #f8bbd9;
+    color: #880e4f;
+    font-weight: bold;
+    text-align: center;
+}
+
+.pcr-ratio {
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+}
+
+.pcr-bullish {
+    background-color: #c8e6c9;
+    color: #1b5e20;
+}
+
+.pcr-bearish {
+    background-color: #ffcdd2;
+    color: #b71c1c;
+}
+
+.pcr-neutral {
+    background-color: #fff9c4;
+    color: #f57f17;
+}
+
+/* IPO and Corporate Actions */
+.ipo-table {
+    border: 2px solid #ff9800;
+}
+
+.ipo-table th {
+    background: linear-gradient(45deg, #ff9800, #e65100);
+}
+
+.ipo-upcoming {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.ipo-live {
+    background-color: #e8f5e8;
+    color: #1b5e20;
+    font-weight: bold;
+}
+
+.dividend-announced {
+    background-color: #e1f5fe;
+    color: #0277bd;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+.bonus-announced {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* Trading Session Timing */
+.session-timing {
+    font-size: 11px;
+    color: #616161;
+    text-align: center;
+    padding: 5px;
+    background-color: #fafafa;
+    border-radius: 4px;
+}
+
+/* News Impact Indicators */
+.news-positive {
+    border-left: 4px solid #4caf50;
+    padding-left: 8px;
+    background-color: #f1f8e9;
+}
+
+.news-negative {
+    border-left: 4px solid #f44336;
+    padding-left: 8px;
+    background-color: #ffebee;
+}
+
+.news-neutral {
+    border-left: 4px solid #ff9800;
+    padding-left: 8px;
+    background-color: #fff8e1;
+}
+
+/* Mobile Responsive Design for 2022 */
+@media screen and (max-width: 768px) {
+    .data-table {
+        font-size: 11px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 6px 4px;
+    }
+    
+    .stock-symbol,
+    .stock-name,
+    .sector-name,
+    .index-name {
+        padding-left: 8px;
+    }
+    
+    .percentage-change {
+        font-size: 10px;
+        padding: 2px 4px;
+    }
+}
+
+/* Print Styles for Reports */
+@media print {
+    .data-table {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .data-table th {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+    }
+    
+    .change-positive,
+    .change-negative {
+        color: #000 !important;
+    }
+    
+    .percentage-positive,
+    .percentage-negative {
+        background-color: #f0f0f0 !important;
+        color: #000 !important;
+    }
+}
+
+/* Loading States for Dynamic Data */
+.loading-cell {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Error States */
+.error-cell {
+    background-color: #ffebee;
+    color: #c62828;
+    font-style: italic;
+    text-align: center;
+}
+
+/* Data Source Attribution */
+.data-source {
+    font-size: 9px;
+    color: #9e9e9e;
+    text-align: right;
+    padding: 2px 5px;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Version 1 Footer */
+.system-footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 11px;
+    color: #666;
+}
+
+.system-footer::before {
+    content: "Market Research System v1.0 (2022) - ";
+    font-weight: bold;
+}
+
+/* Last Updated Timestamp */
+.last-updated {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 10px;
+    color: #999;
+    background-color: #fafafa;
+    padding: 2px 6px;
+    border-radius: 3px;
+}

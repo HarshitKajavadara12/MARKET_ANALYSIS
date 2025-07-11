@@ -1,0 +1,44 @@
+[Unit]
+Description=Market Research System - Analysis and Reporting Service
+Documentation=https://github.com/your-username/market-research-v1
+After=market-research-data-collection.service
+Wants=market-research-data-collection.service
+PartOf=market-research.service
+
+[Service]
+Type=oneshot
+User=market-research
+Group=market-research
+WorkingDirectory=/opt/market-research-v1
+Environment=PYTHONPATH=/opt/market-research-v1/src
+Environment=MARKET_RESEARCH_ENV=production
+Environment=MARKET_RESEARCH_CONFIG=/opt/market-research-v1/config
+Environment=MARKET_RESEARCH_DATA=/opt/market-research-v1/data
+Environment=MARKET_RESEARCH_LOGS=/opt/market-research-v1/logs
+
+# Daily analysis workflow
+ExecStartPre=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/analysis/run_daily_analysis.py
+# Calculate technical indicators
+ExecStart=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/analysis/calculate_indicators.py
+# Generate reports
+ExecStartPost=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/reporting/generate_daily_report.py
+# Send email notifications
+ExecStartPost=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/reporting/email_reports.py --type=daily
+
+TimeoutStartSec=3600
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=market-research-analysis
+
+# Resource limits for analysis tasks
+MemoryMax=4G
+CPUQuota=200%
+
+# Retry configuration
+Restart=on-failure
+RestartSec=300
+StartLimitIntervalSec=7200
+StartLimitBurst=3
+
+[Install]
+WantedBy=market-research.service

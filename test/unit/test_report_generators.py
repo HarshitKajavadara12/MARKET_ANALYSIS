@@ -1,0 +1,487 @@
+"""
+Unit Tests for Report Generation Module
+Market Research System v1.0 (2022)
+Focus: Indian Stock Market
+
+Tests for PDF report generation, chart creation, and template rendering
+"""
+
+import unittest
+import os
+import tempfile
+import pandas as pd
+from datetime import datetime, timedelta
+from unittest.mock import patch, MagicMock
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../src'))
+
+from reporting.pdf_generator import PDFReportGenerator
+from reporting.visualization import ChartGenerator
+from reporting.report_templates import ReportTemplateManager
+from reporting.table_generator import TableGenerator
+
+
+class TestPDFReportGenerator(unittest.TestCase):
+    """Test cases for PDF report generation"""
+    
+    def setUp(self):
+        """Set up test fixtures"""
+        self.temp_dir = tempfile.mkdtemp()
+        self.pdf_generator = PDFReportGenerator(output_dir=self.temp_dir)
+        
+        # Sample Indian stock data
+        self.sample_data = pd.DataFrame({
+            'symbol': ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS', 'ITC.NS'],
+            'company_name': ['Reliance Industries', 'Tata Consultancy Services', 
+                           'HDFC Bank', 'Infosys Limited', 'ITC Limited'],
+            'price': [2650.50, 3420.75, 1580.25, 1650.80, 245.60],
+            'change': [25.30, -45.20, 12.85, 8.90, -2.35],
+            'change_percent': [0.96, -1.31, 0.82, 0.54, -0.95],
+            'volume': [1250000, 890000, 2100000, 1580000, 3200000],
+            'market_cap': [17850000, 12650000, 8750000, 6950000, 2050000]
+        })
+        
+        # Sample Nifty 50 data
+        self.nifty_data = pd.DataFrame({
+            'date': pd.date_range(start='2022-01-01', periods=30, freq='D'),
+            'open': [17500 + i*10 for i in range(30)],
+            'high': [17600 + i*12 for i in range(30)],
+            'low': [17400 + i*8 for i in range(30)],
+            'close': [17550 + i*11 for i in range(30)],
+            'volume': [150000000 + i*1000000 for i in range(30)]
+        })
+    
+    def tearDown(self):
+        """Clean up test fixtures"""
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_generate_daily_report(self):
+        """Test daily report generation"""
+        report_date = datetime.now().strftime('%Y-%m-%d')
+        report_path = self.pdf_generator.generate_daily_report(
+            stock_data=self.sample_data,
+            index_data=self.nifty_data,
+            report_date=report_date
+        )
+        
+        # Check if report file was created
+        self.assertTrue(os.path.exists(report_path))
+        self.assertTrue(report_path.endswith('.pdf'))
+        
+        # Check file size (should be > 0)
+        file_size = os.path.getsize(report_path)
+        self.assertGreater(file_size, 1000)  # Minimum reasonable PDF size
+    
+    def test_generate_sector_report(self):
+        """Test sector-wise report generation"""
+        sector_data = {
+            'IT': {'stocks': ['TCS.NS', 'INFY.NS'], 'performance': 2.5},
+            'Banking': {'stocks': ['HDFCBANK.NS', 'ICICIBANK.NS'], 'performance': 1.8},
+            'Energy': {'stocks': ['RELIANCE.NS', 'ONGC.NS'], 'performance': -0.5}
+        }
+        
+        report_path = self.pdf_generator.generate_sector_report(
+            sector_data=sector_data,
+            report_date=datetime.now().strftime('%Y-%m-%d')
+        )
+        
+        self.assertTrue(os.path.exists(report_path))
+        self.assertIn('sector', report_path.lower())
+    
+    def test_generate_technical_analysis_report(self):
+        """Test technical analysis report generation"""
+        technical_data = {
+            'RELIANCE.NS': {
+                'sma_20': 2625.50,
+                'sma_50': 2580.75,
+                'rsi': 65.8,
+                'macd': 12.5,
+                'bollinger_upper': 2720.0,
+                'bollinger_lower': 2550.0
+            }
+        }
+        
+        report_path = self.pdf_generator.generate_technical_report(
+            technical_data=technical_data,
+            stock_data=self.sample_data
+        )
+        
+        self.assertTrue(os.path.exists(report_path))
+        self.assertIn('technical', report_path.lower())
+    
+    def test_invalid_data_handling(self):
+        """Test handling of invalid or empty data"""
+        empty_data = pd.DataFrame()
+        
+        with self.assertRaises(ValueError):
+            self.pdf_generator.generate_daily_report(
+                stock_data=empty_data,
+                index_data=self.nifty_data,
+                report_date=datetime.now().strftime('%Y-%m-%d')
+            )
+    
+    def test_custom_template_usage(self):
+        """Test custom template usage in report generation"""
+        custom_template = {
+            'title': 'Custom Indian Market Report',
+            'subtitle': 'NSE Analysis',
+            'footer': 'Generated by Market Research v1.0'
+        }
+        
+        report_path = self.pdf_generator.generate_custom_report(
+            data=self.sample_data,
+            template=custom_template
+        )
+        
+        self.assertTrue(os.path.exists(report_path))
+
+
+class TestChartGenerator(unittest.TestCase):
+    """Test cases for chart generation"""
+    
+    def setUp(self):
+        """Set up test fixtures"""
+        self.temp_dir = tempfile.mkdtemp()
+        self.chart_generator = ChartGenerator(output_dir=self.temp_dir)
+        
+        # Sample time series data for Indian indices
+        self.nifty_data = pd.DataFrame({
+            'date': pd.date_range(start='2022-01-01', periods=100, freq='D'),
+            'nifty_50': [17500 + i*5 for i in range(100)],
+            'bank_nifty': [38000 + i*10 for i in range(100)],
+            'nifty_it': [35000 + i*8 for i in range(100)]
+        })
+        
+        self.stock_data = pd.DataFrame({
+            'symbol': ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS'],
+            'price': [2650.50, 3420.75, 1580.25],
+            'change_percent': [0.96, -1.31, 0.82]
+        })
+    
+    def tearDown(self):
+        """Clean up test fixtures"""
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    def test_generate_price_chart(self):
+        """Test price chart generation"""
+        chart_path = self.chart_generator.create_price_chart(
+            data=self.nifty_data,
+            title='Nifty 50 Price Movement',
+            symbol='NIFTY'
+        )
+        
+        self.assertTrue(os.path.exists(chart_path))
+        self.assertTrue(chart_path.endswith('.png'))
+    
+    def test_generate_sector_performance_chart(self):
+        """Test sector performance chart generation"""
+        sector_performance = {
+            'IT': 2.5,
+            'Banking': 1.8,
+            'Pharma': 0.5,
+            'Auto': -0.8,
+            'Energy': -1.2
+        }
+        
+        chart_path = self.chart_generator.create_sector_chart(
+            sector_data=sector_performance,
+            title='NSE Sector Performance'
+        )
+        
+        self.assertTrue(os.path.exists(chart_path))
+    
+    def test_generate_volume_chart(self):
+        """Test volume chart generation"""
+        volume_data = pd.DataFrame({
+            'date': pd.date_range(start='2022-01-01', periods=50, freq='D'),
+            'volume': [150000000 + i*1000000 for i in range(50)]
+        })
+        
+        chart_path = self.chart_generator.create_volume_chart(
+            data=volume_data,
+            title='Market Volume Analysis'
+        )
+        
+        self.assertTrue(os.path.exists(chart_path))
+    
+    def test_generate_correlation_heatmap(self):
+        """Test correlation heatmap generation"""
+        correlation_data = pd.DataFrame({
+            'RELIANCE.NS': [1.0, 0.65, 0.45, 0.32],
+            'TCS.NS': [0.65, 1.0, 0.55, 0.78],
+            'HDFCBANK.NS': [0.45, 0.55, 1.0, 0.42],
+            'INFY.NS': [0.32, 0.78, 0.42, 1.0]
+        }, index=['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS'])
+        
+        chart_path = self.chart_generator.create_correlation_heatmap(
+            correlation_matrix=correlation_data,
+            title='Stock Correlation Matrix'
+        )
+        
+        self.assertTrue(os.path.exists(chart_path))
+    
+    def test_technical_indicator_chart(self):
+        """Test technical indicator chart generation"""
+        price_data = pd.DataFrame({
+            'date': pd.date_range(start='2022-01-01', periods=50, freq='D'),
+            'close': [2650 + i*2 for i in range(50)],
+            'sma_20': [2640 + i*2 for i in range(50)],
+            'sma_50': [2630 + i*2 for i in range(50)]
+        })
+        
+        chart_path = self.chart_generator.create_technical_chart(
+            data=price_data,
+            symbol='RELIANCE.NS',
+            indicators=['sma_20', 'sma_50']
+        )
+        
+        self.assertTrue(os.path.exists(chart_path))
+
+
+class TestReportTemplateManager(unittest.TestCase):
+    """Test cases for report template management"""
+    
+    def setUp(self):
+        """Set up test fixtures"""
+        self.template_manager = ReportTemplateManager()
+    
+    def test_load_daily_template(self):
+        """Test loading daily report template"""
+        template = self.template_manager.get_daily_template()
+        
+        self.assertIsInstance(template, dict)
+        self.assertIn('title', template)
+        self.assertIn('sections', template)
+        self.assertIn('Indian Market Daily Report', template['title'])
+    
+    def test_load_weekly_template(self):
+        """Test loading weekly report template"""
+        template = self.template_manager.get_weekly_template()
+        
+        self.assertIsInstance(template, dict)
+        self.assertIn('title', template)
+        self.assertIn('Weekly Market Analysis', template['title'])
+    
+    def test_load_sector_template(self):
+        """Test loading sector analysis template"""
+        template = self.template_manager.get_sector_template()
+        
+        self.assertIsInstance(template, dict)
+        self.assertIn('sectors', template)
+        self.assertIn('NSE Sector Analysis', template['title'])
+    
+    def test_custom_template_creation(self):
+        """Test custom template creation"""
+        custom_config = {
+            'title': 'Custom Report',
+            'include_charts': True,
+            'include_tables': True,
+            'market_focus': 'NSE'
+        }
+        
+        template = self.template_manager.create_custom_template(custom_config)
+        
+        self.assertIsInstance(template, dict)
+        self.assertEqual(template['title'], 'Custom Report')
+        self.assertTrue(template['include_charts'])
+    
+    def test_template_validation(self):
+        """Test template validation"""
+        invalid_template = {'title': 'Test'}  # Missing required fields
+        
+        is_valid = self.template_manager.validate_template(invalid_template)
+        self.assertFalse(is_valid)
+        
+        valid_template = {
+            'title': 'Test Report',
+            'sections': ['summary', 'analysis'],
+            'format': 'pdf'
+        }
+        
+        is_valid = self.template_manager.validate_template(valid_template)
+        self.assertTrue(is_valid)
+
+
+class TestTableGenerator(unittest.TestCase):
+    """Test cases for table generation"""
+    
+    def setUp(self):
+        """Set up test fixtures"""
+        self.table_generator = TableGenerator()
+        
+        self.stock_data = pd.DataFrame({
+            'Symbol': ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS', 'INFY.NS'],
+            'Company': ['Reliance Industries', 'TCS', 'HDFC Bank', 'Infosys'],
+            'Price': [2650.50, 3420.75, 1580.25, 1650.80],
+            'Change %': [0.96, -1.31, 0.82, 0.54],
+            'Volume': [1250000, 890000, 2100000, 1580000]
+        })
+    
+    def test_generate_stock_performance_table(self):
+        """Test stock performance table generation"""
+        table_html = self.table_generator.create_stock_table(
+            data=self.stock_data,
+            title='Top NSE Stocks Performance'
+        )
+        
+        self.assertIsInstance(table_html, str)
+        self.assertIn('<table', table_html)
+        self.assertIn('RELIANCE.NS', table_html)
+        self.assertIn('TCS.NS', table_html)
+    
+    def test_generate_sector_summary_table(self):
+        """Test sector summary table generation"""
+        sector_data = pd.DataFrame({
+            'Sector': ['IT', 'Banking', 'Pharma', 'Auto'],
+            'Performance %': [2.5, 1.8, 0.5, -0.8],
+            'Market Cap (Cr)': [1250000, 890000, 450000, 320000],
+            'Top Stock': ['TCS.NS', 'HDFCBANK.NS', 'SUNPHARMA.NS', 'MARUTI.NS']
+        })
+        
+        table_html = self.table_generator.create_sector_table(
+            data=sector_data,
+            title='NSE Sector Performance Summary'
+        )
+        
+        self.assertIsInstance(table_html, str)
+        self.assertIn('Banking', table_html)
+        self.assertIn('IT', table_html)
+    
+    def test_generate_technical_indicators_table(self):
+        """Test technical indicators table generation"""
+        technical_data = pd.DataFrame({
+            'Symbol': ['RELIANCE.NS', 'TCS.NS'],
+            'RSI': [65.8, 72.3],
+            'MACD': [12.5, -8.2],
+            'SMA 20': [2625.50, 3405.75],
+            'SMA 50': [2580.75, 3380.25]
+        })
+        
+        table_html = self.table_generator.create_technical_table(
+            data=technical_data,
+            title='Technical Indicators Summary'
+        )
+        
+        self.assertIsInstance(table_html, str)
+        self.assertIn('RSI', table_html)
+        self.assertIn('MACD', table_html)
+    
+    def test_table_styling(self):
+        """Test table styling options"""
+        styled_table = self.table_generator.create_styled_table(
+            data=self.stock_data,
+            style='modern',
+            color_scheme='nse_theme'
+        )
+        
+        self.assertIsInstance(styled_table, str)
+        self.assertIn('style=', styled_table)
+    
+    def test_export_table_formats(self):
+        """Test table export in different formats"""
+        # Test HTML export
+        html_table = self.table_generator.export_table(
+            data=self.stock_data,
+            format='html'
+        )
+        self.assertIn('<table', html_table)
+        
+        # Test CSV export
+        csv_table = self.table_generator.export_table(
+            data=self.stock_data,
+            format='csv'
+        )
+        self.assertIn('Symbol,Company', csv_table)
+
+
+class TestReportIntegration(unittest.TestCase):
+    """Integration tests for complete report generation workflow"""
+    
+    def setUp(self):
+        """Set up integration test fixtures"""
+        self.temp_dir = tempfile.mkdtemp()
+        
+        # Mock data for complete workflow
+        self.market_data = {
+            'stocks': pd.DataFrame({
+                'symbol': ['RELIANCE.NS', 'TCS.NS', 'HDFCBANK.NS'],
+                'price': [2650.50, 3420.75, 1580.25],
+                'change': [25.30, -45.20, 12.85],
+                'volume': [1250000, 890000, 2100000]
+            }),
+            'indices': pd.DataFrame({
+                'index': ['NIFTY', 'BANKNIFTY', 'NIFTYIT'],
+                'value': [17850.50, 38250.75, 35120.25],
+                'change': [125.30, -145.20, 85.50]
+            }),
+            'sectors': {
+                'IT': 2.5, 'Banking': 1.8, 'Pharma': 0.5
+            }
+        }
+    
+    def tearDown(self):
+        """Clean up integration test fixtures"""
+        import shutil
+        shutil.rmtree(self.temp_dir, ignore_errors=True)
+    
+    @patch('src.reporting.email_sender.EmailSender.send_report')
+    def test_complete_daily_report_workflow(self, mock_email):
+        """Test complete daily report generation and distribution workflow"""
+        from reporting.pdf_generator import PDFReportGenerator
+        
+        # Initialize components
+        pdf_generator = PDFReportGenerator(output_dir=self.temp_dir)
+        
+        # Generate complete daily report
+        report_path = pdf_generator.generate_complete_daily_report(
+            market_data=self.market_data,
+            date=datetime.now().strftime('%Y-%m-%d')
+        )
+        
+        # Verify report generation
+        self.assertTrue(os.path.exists(report_path))
+        
+        # Verify email sending was called
+        mock_email.assert_called_once()
+    
+    def test_batch_report_generation(self):
+        """Test batch generation of multiple reports"""
+        from reporting.pdf_generator import PDFReportGenerator
+        
+        pdf_generator = PDFReportGenerator(output_dir=self.temp_dir)
+        
+        # Generate multiple report types
+        reports = pdf_generator.generate_batch_reports(
+            market_data=self.market_data,
+            report_types=['daily', 'sector', 'technical']
+        )
+        
+        # Verify all reports were generated
+        self.assertEqual(len(reports), 3)
+        for report_path in reports:
+            self.assertTrue(os.path.exists(report_path))
+
+
+if __name__ == '__main__':
+    # Set up test suite
+    test_suite = unittest.TestSuite()
+    
+    # Add test cases
+    test_suite.addTest(unittest.makeSuite(TestPDFReportGenerator))
+    test_suite.addTest(unittest.makeSuite(TestChartGenerator))
+    test_suite.addTest(unittest.makeSuite(TestReportTemplateManager))
+    test_suite.addTest(unittest.makeSuite(TestTableGenerator))
+    test_suite.addTest(unittest.makeSuite(TestReportIntegration))
+    
+    # Run tests
+    runner = unittest.TextTestRunner(verbosity=2)
+    result = runner.run(test_suite)
+    
+    # Print summary
+    print(f"\nTest Summary:")
+    print(f"Tests run: {result.testsRun}")
+    print(f"Failures: {len(result.failures)}")
+    print(f"Errors: {len(result.errors)}")
+    print(f"Success rate: {((result.testsRun - len(result.failures) - len(result.errors)) / result.testsRun * 100):.1f}%")

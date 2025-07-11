@@ -1,0 +1,38 @@
+[Unit]
+Description=Market Research System - Data Collection Service
+Documentation=https://github.com/your-username/market-research-v1
+After=network-online.target
+Wants=network-online.target
+PartOf=market-research.service
+
+[Service]
+Type=oneshot
+User=market-research
+Group=market-research
+WorkingDirectory=/opt/market-research-v1
+Environment=PYTHONPATH=/opt/market-research-v1/src
+Environment=MARKET_RESEARCH_ENV=production
+Environment=MARKET_RESEARCH_CONFIG=/opt/market-research-v1/config
+Environment=MARKET_RESEARCH_DATA=/opt/market-research-v1/data
+Environment=MARKET_RESEARCH_LOGS=/opt/market-research-v1/logs
+
+# Pre-market data collection (NSE/BSE data)
+ExecStartPre=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/data_collection/collect_daily_data.py --mode=pre-market
+# Market hours data collection
+ExecStart=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/data_collection/collect_daily_data.py --mode=market-hours
+# Post-market data collection and validation
+ExecStartPost=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/data_collection/validate_data.py
+
+TimeoutStartSec=1800
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=market-research-data
+
+# Retry on failure
+Restart=on-failure
+RestartSec=60
+StartLimitIntervalSec=3600
+StartLimitBurst=5
+
+[Install]
+WantedBy=market-research.service

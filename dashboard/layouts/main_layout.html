@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Market Research Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="../static/css/dashboard.css" rel="stylesheet">
+    
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- TradingView Charting Library -->
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    
+    <!-- Real-time updates -->
+    <script src="../static/js/real_time_updates.js"></script>
+</head>
+<body class="dashboard-body">
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-chart-line me-2"></i>
+                Indian Market Research Platform
+            </a>
+            
+            <!-- Toggle button for mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">
+                            <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analysis">
+                            <i class="fas fa-chart-bar me-1"></i>Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#predictions">
+                            <i class="fas fa-brain me-1"></i>AI Predictions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#alerts">
+                            <i class="fas fa-bell me-1"></i>Alerts
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Market Status and Time -->
+                <div class="navbar-text me-3">
+                    <span id="market-status" class="badge bg-success">
+                        <i class="fas fa-circle me-1"></i>Market Open
+                    </span>
+                    <span id="current-time" class="ms-2"></span>
+                </div>
+                
+                <!-- Settings -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-palette me-2"></i>Theme</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Container -->
+    <div class="container-fluid main-container">
+        <div class="row h-100">
+            <!-- Left Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar">
+                <!-- Market Indices -->
+                <div class="sidebar-section">
+                    <h6 class="sidebar-heading">
+                        <i class="fas fa-chart-line me-2"></i>Major Indices
+                    </h6>
+                    <div class="indices-container">
+                        <div class="index-item" id="nifty-50">
+                            <div class="index-name">NIFTY 50</div>
+                            <div class="index-value">19,500.25</div>
+                            <div class="index-change positive">+125.30 (+0.65%)</div>
+                        </div>
+                        <div class="index-item" id="sensex">
+                            <div class="index-name">SENSEX</div>
+                            <div class="index-value">65,450.80</div>
+                            <div class="index-change positive">+420.15 (+0.65%)</div>
+                        </div>
+                        <div class="index-item" id="bank-nifty">
+                            <div class="index-name">BANK NIFTY</div>
+                            <div class="index-value">44,250.60</div>
+                            <div class="index-change negative">-180.25 (-0.41%)</div>
+                        </div>
+                        <div class="index-item" id="nifty-it">
+                            <div class="index-name">NIFTY IT</div>
+                            <div class="index-value">30,125.40</div>
+                            <div class="index-change positive">+245.80 (+0.82%)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Watchlist -->
+                <div class="sidebar-section">
+                    <h6 class="sidebar-heading">
+                        <i class="fas fa-star me-2"></i>Watchlist
+                        <button class="btn btn-sm btn-outline-primary ms-auto" id="add-to-watchlist">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </h6>
+                    <div class="watchlist-container" id="watchlist">
+                        <div class="watchlist-item" data-symbol="RELIANCE">
+                            <div class="stock-symbol">RELIANCE</div>
+                            <div class="stock-price">₹2,485.30</div>
+                            <div class="stock-change positive">+15.25 (+0.62%)</div>
+                        </div>
+                        <div class="watchlist-item" data-symbol="TCS">
+                            <div class="stock-symbol">TCS</div>
+                            <div class="stock-price">₹3,650.80</div>
+                            <div class="stock-change positive">+28.40 (+0.78%)</div>
+                        </div>
+                        <div class="watchlist-item" data-symbol="INFY">
+                            <div class="stock-symbol">INFY</div>
+                            <div class="stock-price">₹1,420.15</div>
+                            <div class="stock-change negative">-8.25 (-0.58%)</div>
+                        </div>
+                        <div class="watchlist-item" data-symbol="HDFC">
+                            <div class="stock-symbol">HDFC</div>
+                            <div class="stock-price">₹1,650.90</div>
+                            <div class="stock-change positive">+12.30 (+0.75%)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sector Performance -->
+                <div class="sidebar-section">
+                    <h6 class="sidebar-heading">
+                        <i class="fas fa-industry me-2"></i>Sector Performance
+                    </h6>
+                    <div class="sector-container">
+                        <div class="sector-item">
+                            <div class="sector-name">Banking</div>
+                            <div class="sector-change negative">-0.25%</div>
+                        </div>
+                        <div class="sector-item">
+                            <div class="sector-name">IT</div>
+                            <div class="sector-change positive">+1.15%</div>
+                        </div>
+                        <div class="sector-item">
+                            <div class="sector-name">Pharma</div>
+                            <div class="sector-change positive">+0.85%</div>
+                        </div>
+                        <div class="sector-item">
+                            <div class="sector-name">Auto</div>
+                            <div class="sector-change negative">-0.45%</div>
+                        </div>
+                        <div class="sector-item">
+                            <div class="sector-name">FMCG</div>
+                            <div class="sector-change positive">+0.35%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Market Breadth -->
+                <div class="sidebar-section">
+                    <h6 class="sidebar-heading">
+                        <i class="fas fa-chart-pie me-2"></i>Market Breadth
+                    </h6>
+                    <div class="market-breadth">
+                        <div class="breadth-item">
+                            <span class="breadth-label">Advances</span>
+                            <span class="breadth-value positive">1,245</span>
+                        </div>
+                        <div class="breadth-item">
+                            <span class="breadth-label">Declines</span>
+                            <span class="breadth-value negative">985</span>
+                        </div>
+                        <div class="breadth-item">
+                            <span class="breadth-label">Unchanged</span>
+                            <span class="breadth-value neutral">125</span>
+                        </div>
+                        <div class="breadth-ratio">
+                            <div class="ratio-bar">
+                                <div class="ratio-positive" style="width: 55%"></div>
+                            </div>
+                            <span class="ratio-text">A/D Ratio: 1.26</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="col-md-9 col-lg-10 main-content">
+                <!-- Top Metrics Bar -->
+                <div class="metrics-bar">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-value">₹45,250 Cr</div>
+                                    <div class="metric-label">Market Cap</div>
+                                    <div class="metric-change positive">+2.5%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-value">₹8,450 Cr</div>
+                                    <div class="metric-label">Volume</div>
+                                    <div class="metric-change positive">+15.2%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-value">₹-2,450 Cr</div>
+                                    <div class="metric-label">FII Flow</div>
+                                    <div class="metric-change negative">Outflow</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="metric-content">
+                                    <div class="metric-value">₹1,850 Cr</div>
+                                    <div class="metric-label">DII Flow</div>
+                                    <div class="metric-change positive">Inflow</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chart and Analysis Section -->
+                <div class="row">
+                    <!-- Main Chart Area -->
+                    <div class="col-lg-8">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <div class="chart-title">
+                                    <h5 id="selected-symbol">NIFTY 50</h5>
+                                    <div class="chart-controls">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-outline-primary active" data-timeframe="1D">1D</button>
+                                            <button type="button" class="btn btn-outline-primary" data-timeframe="5D">5D</button>
+                                            <button type="button" class="btn btn-outline-primary" data-timeframe="1M">1M</button>
+                                            <button type="button" class="btn btn-outline-primary" data-timeframe="3M">3M</button>
+                                            <button type="button" class="btn btn-outline-primary" data-timeframe="1Y">1Y</button>
+                                        </div>
+                                        <div class="btn-group btn-group-sm ms-2" role="group">
+                                            <button type="button" class="btn btn-outline-secondary active" data-chart-type="candlestick">Candle</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-chart-type="line">Line</button>
+                                            <button type="button" class="btn btn-outline-secondary" data-chart-type="area">Area</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chart-content">
+                                <div id="main-chart" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Indicators -->
+                        <div class="indicators-container mt-3">
+                            <div class="indicators-header">
+                                <h6>Technical Indicators</h6>
+                                <div class="indicator-controls">
+                                    <select class="form-select form-select-sm" id="indicator-select">
+                                        <option value="rsi">RSI</option>
+                                        <option value="macd">MACD</option>
+                                        <option value="bollinger">Bollinger Bands</option>
+                                        <option value="sma">Moving Averages</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="indicators-chart" style="height: 200px;"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Panel -->
+                    <div class="col-lg-4">
+                        <!-- Live Predictions -->
+                        <div class="prediction-panel">
+                            <h6 class="panel-title">
+                                <i class="fas fa-brain me-2"></i>AI Predictions
+                            </h6>
+                            <div class="prediction-content">
+                                <div class="prediction-item">
+                                    <div class="prediction-timeframe">Next 1 Hour</div>
+                                    <div class="prediction-direction bullish">
+                                        <i class="fas fa-arrow-up"></i> Bullish
+                                    </div>
+                                    <div class="prediction-confidence">Confidence: 78%</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-timeframe">Next 4 Hours</div>
+                                    <div class="prediction-direction neutral">
+                                        <i class="fas fa-minus"></i> Neutral
+                                    </div>
+                                    <div class="prediction-confidence">Confidence: 65%</div>
+                                </div>
+                                <div class="prediction-item">
+                                    <div class="prediction-timeframe">Next Day</div>
+                                    <div class="prediction-direction bearish">
+                                        <i class="fas fa-arrow-down"></i> Bearish
+                                    </div>
+                                    <div class="prediction-confidence">Confidence: 72%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Market Sentiment -->
+                        <div class="sentiment-panel mt-3">
+                            <h6 class="panel-title">
+                                <i class="fas fa-heart me-2"></i>Market Sentiment
+                            </h6>
+                            <div class="sentiment-gauge">
+                                <div id="sentiment-chart" style="height: 200px;"></div>
+                            </div>
+                            <div class="sentiment-details">
+                                <div class="sentiment-item">
+                                    <span class="sentiment-label">Fear & Greed Index</span>
+                                    <span class="sentiment-value">65 (Greed)</span>
+                                </div>
+                                <div class="sentiment-item">
+                                    <span class="sentiment-label">News Sentiment</span>
+                                    <span class="sentiment-value positive">Positive</span>
+                                </div>
+                                <div class="sentiment-item">
+                                    <span class="sentiment-label">Social Media</span>
+                                    <span class="sentiment-value neutral">Neutral</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Risk Metrics -->
+                        <div class="risk-panel mt-3">
+                            <h6 class="panel-title">
+                                <i class="fas fa-shield-alt me-2"></i>Risk Metrics
+                            </h6>
+                            <div class="risk-content">
+                                <div class="risk-item">
+                                    <span class="risk-label">VaR (1 Day)</span>
+                                    <span class="risk-value">-2.5%</span>
+                                </div>
+                                <div class="risk-item">
+                                    <span class="risk-label">Volatility</span>
+                                    <span class="risk-value">18.5%</span>
+                                </div>
+                                <div class="risk-item">
+                                    <span class="risk-label">Beta</span>
+                                    <span class="risk-value">1.15</span>
+                                </div>
+                                <div class="risk-item">
+                                    <span class="risk-label">Sharpe Ratio</span>
+                                    <span class="risk-value">1.25</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Active Alerts -->
+                        <div class="alerts-panel mt-3">
+                            <h6 class="panel-title">
+                                <i class="fas fa-bell me-2"></i>Active Alerts
+                                <span class="badge bg-danger ms-2">3</span>
+                            </h6>
+                            <div class="alerts-content">
+                                <div class="alert-item high-priority">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">RELIANCE Above ₹2500</div>
+                                        <div class="alert-time">2 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="alert-item medium-priority">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">TCS RSI Overbought</div>
+                                        <div class="alert-time">15 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="alert-item low-priority">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">NIFTY Volume Spike</div>
+                                        <div class="alert-time">1 hour ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Analysis Section -->
+                <div class="row mt-4">
+                    <!-- Market Analysis -->
+                    <div class="col-md-6">
+                        <div class="analysis-panel">
+                            <h6 class="panel-title">
+                                <i class="fas fa-microscope me-2"></i>Market Analysis
+                            </h6>
+                            <div class="analysis-content">
+                                <div class="analysis-item">
+                                    <h6>Support & Resistance</h6>
+                                    <div class="support-resistance">
+                                        <div class="level resistance">
+                                            <span class="level-label">Resistance 2:</span>
+                                            <span class="level-value">19,650</span>
+                                        </div>
+                                        <div class="level resistance">
+                                            <span class="level-label">Resistance 1:</span>
+                                            <span class="level-value">19,580</span>
+                                        </div>
+                                        <div class="level current">
+                                            <span class="level-label">Current:</span>
+                                            <span class="level-value">19,500</span>
+                                        </div>
+                                        <div class="level support">
+                                            <span class="level-label">Support 1:</span>
+                                            <span class="level-value">19,420</span>
+                                        </div>
+                                        <div class="level support">
+                                            <span class="level-label">Support 2:</span>
+                                            <span class="level-value">19,350</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Trade Recommendations -->
+                    <div class="col-md-6">
+                        <div class="recommendations-panel">
+                            <h6 class="panel-title">
+                                <i class="fas fa-lightbulb me-2"></i>Trade Recommendations
+                            </h6>
+                            <div class="recommendations-content">
+                                <div class="recommendation-item buy">
+                                    <div class="recommendation-action">BUY</div>
+                                    <div class="recommendation-details">
+                                        <div class="recommendation-symbol">RELIANCE</div>
+                                        <div class="recommendation-price">Target: ₹2,550 | SL: ₹2,420</div>
+                                        <div class="recommendation-reason">Bullish breakout pattern</div>
+                                    </div>
+                                </div>
+                                <div class="recommendation-item sell">
+                                    <div class="recommendation-action">SELL</div>
+                                    <div class="recommendation-details">
+                                        <div class="recommendation-symbol">HDFC</div>
+                                        <div class="recommendation-price">Target: ₹1,580 | SL: ₹1,680</div>
+                                        <div class="recommendation-reason">Resistance rejection</div>
+                                    </div>
+                                </div>
+                                <div class="recommendation-item hold">
+                                    <div class="recommendation-action">HOLD</div>
+                                    <div class="recommendation-details">
+                                        <div class="recommendation-symbol">TCS</div>
+                                        <div class="recommendation-price">Current: ₹3,650</div>
+                                        <div class="recommendation-reason">Consolidation phase</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="loading-text">Loading market data...</div>
+        </div>
+    </div>
+    
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Market Alert</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="alert-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+            startRealTimeUpdates();
+            updateCurrentTime();
+            
+            // Update time every second
+            setInterval(updateCurrentTime, 1000);
+        });
+        
+        function initializeDashboard() {
+            // Initialize charts
+            initializeMainChart();
+            initializeIndicatorsChart();
+            initializeSentimentGauge();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Load initial data
+            loadMarketData();
+        }
+        
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                hour12: true
+            });
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        function initializeMainChart() {
+            // Initialize main price chart
+            const chartDiv = document.getElementById('main-chart');
+            
+            // Sample data for demonstration
+            const trace = {
+                x: ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
+                close: [19400, 19450, 19500, 19480, 19520],
+                high: [19450, 19480, 19530, 19510, 19550],
+                low: [19380, 19420, 19470, 19460, 19500],
+                open: [19400, 19440, 19480, 19500, 19510],
+                type: 'candlestick',
+                name: 'NIFTY 50'
+            };
+            
+            const layout = {
+                title: '',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'Price' },
+                template: 'plotly_dark'
+            };
+            
+            Plotly.newPlot(chartDiv, [trace], layout, {responsive: true});
+        }
+        
+        function initializeIndicatorsChart() {
+            // Initialize technical indicators chart
+            const chartDiv = document.getElementById('indicators-chart');
+            
+            const trace = {
+                x: ['2024-01-01', '2024-01-02', '2024-01-03', '2024-01-04', '2024-01-05'],
+                y: [45, 52, 58, 62, 55],
+                type: 'scatter',
+                mode: 'lines',
+                name: 'RSI',
+                line: { color: '#00d4aa' }
+            };
+            
+            const layout = {
+                title: '',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'RSI', range: [0, 100] },
+                template: 'plotly_dark',
+                height: 200
+            };
+            
+            Plotly.newPlot(chartDiv, [trace], layout, {responsive: true});
+        }
+        
+        function initializeSentimentGauge() {
+            // Initialize sentiment gauge
+            const chartDiv = document.getElementById('sentiment-chart');
+            
+            const data = [{
+                type: "indicator",
+                mode: "gauge+number",
+                value: 65,
+                domain: { x: [0, 1], y: [0, 1] },
+                title: { text: "Fear & Greed" },
+                gauge: {
+                    axis: { range: [null, 100] },
+                    bar: { color: "#00d4aa" },
+                    steps: [
+                        { range: [0, 25], color: "#ff4444" },
+                        { range: [25, 50], color: "#ffaa00" },
+                        { range: [50, 75], color: "#00d4aa" },
+                        { range: [75, 100], color: "#0088ff" }
+                    ],
+                    threshold: {
+                        line: { color: "red", width: 4 },
+                        thickness: 0.75,
+                        value: 90
+                    }
+                }
+            }];
+            
+            const layout = {
+                template: 'plotly_dark',
+                height: 200,
+                margin: { t: 0, b: 0, l: 0, r: 0 }
+            };
+            
+            Plotly.newPlot(chartDiv, data, layout, {responsive: true});
+        }
+        
+        function setupEventListeners() {
+            // Timeframe buttons
+            document.querySelectorAll('[data-timeframe]').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('[data-timeframe]').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    updateChartTimeframe(this.dataset.timeframe);
+                });
+            });
+            
+            // Chart type buttons
+            document.querySelectorAll('[data-chart-type]').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('[data-chart-type]').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    updateChartType(this.dataset.chartType);
+                });
+            });
+            
+            // Watchlist items
+            document.querySelectorAll('.watchlist-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const symbol = this.dataset.symbol;
+                    selectSymbol(symbol);
+                });
+            });
+            
+            // Indicator selector
+            document.getElementById('indicator-select').addEventListener('change', function() {
+                updateIndicator(this.value);
+            });
+        }
+        
+        function updateChartTimeframe(timeframe) {
+            console.log('Updating timeframe to:', timeframe);
+            // Implementation for timeframe change
+        }
+        
+        function updateChartType(chartType) {
+            console.log('Updating chart type to:', chartType);
+            // Implementation for chart type change
+        }
+        
+        function selectSymbol(symbol) {
+            console.log('Selecting symbol:', symbol);
+            document.getElementById('selected-symbol').textContent = symbol;
+            // Implementation for symbol change
+        }
+        
+        function updateIndicator(indicator) {
+            console.log('Updating indicator to:', indicator);
+            // Implementation for indicator change
+        }
+        
+        function loadMarketData() {
+            // Show loading overlay
+            document.getElementById('loading-overlay').style.display = 'flex';
+            
+            // Simulate data loading
+            setTimeout(() => {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }, 2000);
+        }
+        
+        function startRealTimeUpdates() {
+            // Start real-time data updates
+            setInterval(() => {
+                updateMarketData();
+            }, 5000); // Update every 5 seconds
+        }
+        
+        function updateMarketData() {
+            // Update market data in real-time
+            console.log('Updating market data...');
+            // Implementation for real-time updates
+        }
+        
+        function showAlert(title, message, type = 'info') {
+            const alertContent = document.getElementById('alert-content');
+            alertContent.innerHTML = `
+                <div class="alert alert-${type}" role="alert">
+                    <h6>${title}</h6>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            const modal = new bootstrap.Modal(document.getElementById('alertModal'));
+            modal.show();
+        }
+    </script>
+</body>
+</html>

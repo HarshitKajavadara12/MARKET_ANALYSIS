@@ -1,0 +1,380 @@
+# Market Indices Configuration for Indian Stock Market Analysis
+# NSE and BSE indices tracking configuration
+
+# Primary Indian Market Indices
+indian_indices:
+  broad_market:
+    - symbol: "^NSEI"
+      name: "Nifty 50"
+      exchange: "NSE"
+      description: "Top 50 stocks by market cap on NSE"
+      constituents: 50
+      base_year: 1996
+      base_value: 1000
+      weight_method: "free_float_market_cap"
+      rebalancing: "semi_annual"
+      importance: "high"
+      category: "large_cap"
+    
+    - symbol: "^BSESN"
+      name: "BSE Sensex"
+      exchange: "BSE"
+      description: "Top 30 stocks by market cap on BSE"
+      constituents: 30
+      base_year: 1979
+      base_value: 100
+      weight_method: "free_float_market_cap"
+      rebalancing: "semi_annual"
+      importance: "high"
+      category: "large_cap"
+    
+    - symbol: "NIFTY_NEXT_50.NS"
+      name: "Nifty Next 50"
+      exchange: "NSE"
+      description: "Next 50 stocks after Nifty 50"
+      constituents: 50
+      weight_method: "free_float_market_cap"
+      importance: "medium"
+      category: "large_cap"
+      
+    - symbol: "NIFTY_100.NS"
+      name: "Nifty 100"
+      exchange: "NSE"
+      description: "Top 100 stocks by market cap"
+      constituents: 100
+      weight_method: "free_float_market_cap"
+      importance: "medium"
+      category: "large_cap"
+    
+    - symbol: "NIFTY_200.NS"
+      name: "Nifty 200"
+      exchange: "NSE"
+      description: "Top 200 stocks by market cap"
+      constituents: 200
+      weight_method: "free_float_market_cap"
+      importance: "medium"
+      category: "multi_cap"
+    
+    - symbol: "NIFTY_500.NS"
+      name: "Nifty 500"
+      exchange: "NSE"
+      description: "Top 500 stocks by market cap"
+      constituents: 500
+      weight_method: "free_float_market_cap"
+      importance: "medium"
+      category: "multi_cap"
+
+  market_cap_based:
+    - symbol: "NIFTY_SMLCAP_100.NS"
+      name: "Nifty Smallcap 100"
+      exchange: "NSE"
+      description: "Top 100 small cap stocks"
+      constituents: 100
+      importance: "medium"
+      category: "small_cap"
+    
+    - symbol: "NIFTY_MIDCAP_100.NS"
+      name: "Nifty Midcap 100"
+      exchange: "NSE"
+      description: "Top 100 mid cap stocks"
+      constituents: 100
+      importance: "medium"
+      category: "mid_cap"
+    
+    - symbol: "BSE_MIDCAP.BO"
+      name: "BSE Midcap"
+      exchange: "BSE"
+      description: "BSE mid cap index"
+      importance: "low"
+      category: "mid_cap"
+    
+    - symbol: "BSE_SMLCAP.BO"
+      name: "BSE Smallcap"
+      exchange: "BSE"
+      description: "BSE small cap index"
+      importance: "low"
+      category: "small_cap"
+
+# Sectoral Indices
+sectoral_indices:
+  banking_financial:
+    - symbol: "NIFTY_BANK.NS"
+      name: "Nifty Bank"
+      exchange: "NSE"
+      description: "Banking sector index"
+      constituents: 12
+      importance: "high"
+      category: "banking"
+      volatility: "high"
+    
+    - symbol: "NIFTY_FIN_SERVICE.NS"
+      name: "Nifty Financial Services"
+      exchange: "NSE"
+      description: "Financial services sector index"
+      constituents: 20
+      importance: "high"
+      category: "financial_services"
+    
+    - symbol: "NIFTY_PVT_BANK.NS"
+      name: "Nifty Private Bank"
+      exchange: "NSE"
+      description: "Private banking sector"
+      constituents: 10
+      importance: "medium"
+      category: "banking"
+    
+    - symbol: "NIFTY_PSU_BANK.NS"
+      name: "Nifty PSU Bank"
+      exchange: "NSE"
+      description: "Public sector banking"
+      constituents: 12
+      importance: "medium"
+      category: "banking"
+
+  technology:
+    - symbol: "NIFTY_IT.NS"
+      name: "Nifty IT"
+      exchange: "NSE"
+      description: "Information Technology sector"
+      constituents: 10
+      importance: "high"
+      category: "technology"
+      export_oriented: true
+    
+    - symbol: "BSE_TECK.BO"
+      name: "BSE IT"
+      exchange: "BSE"
+      description: "BSE Technology index"
+      importance: "low"
+      category: "technology"
+
+  pharma_healthcare:
+    - symbol: "NIFTY_PHARMA.NS"
+      name: "Nifty Pharma"
+      exchange: "NSE"
+      description: "Pharmaceutical sector"
+      constituents: 10
+      importance: "medium"
+      category: "healthcare"
+      defensive: true
+    
+    - symbol: "BSE_HEALTHCARE.BO"
+      name: "BSE Healthcare"
+      exchange: "BSE"
+      description: "Healthcare sector index"
+      importance: "low"
+      category: "healthcare"
+
+  energy_utilities:
+    - symbol: "NIFTY_ENERGY.NS"
+      name: "Nifty Energy"
+      exchange: "NSE"
+      description: "Energy sector index"
+      constituents: 10
+      importance: "medium"
+      category: "energy"
+      cyclical: true
+    
+    - symbol: "NIFTY_OIL_GAS.NS"
+      name: "Nifty Oil & Gas"
+      exchange: "NSE"
+      description: "Oil and Gas sector"
+      importance: "medium"
+      category: "energy"
+
+  consumer_goods:
+    - symbol: "NIFTY_FMCG.NS"
+      name: "Nifty FMCG"
+      exchange: "NSE"
+      description: "Fast Moving Consumer Goods"
+      constituents: 15
+      importance: "medium"
+      category: "consumer_staples"
+      defensive: true
+    
+    - symbol: "NIFTY_CONSR_DURBL.NS"
+      name: "Nifty Consumer Durables"
+      exchange: "NSE"
+      description: "Consumer durables sector"
+      importance: "low"
+      category: "consumer_discretionary"
+
+  infrastructure:
+    - symbol: "NIFTY_INFRA.NS"
+      name: "Nifty Infrastructure"
+      exchange: "NSE"
+      description: "Infrastructure sector"
+      importance: "medium"
+      category: "infrastructure"
+      cyclical: true
+    
+    - symbol: "NIFTY_REALTY.NS"
+      name: "Nifty Realty"
+      exchange: "NSE"
+      description: "Real estate sector"
+      constituents: 10
+      importance: "low"
+      category: "real_estate"
+      cyclical: true
+
+  metals_mining:
+    - symbol: "NIFTY_METAL.NS"
+      name: "Nifty Metal"
+      exchange: "NSE"
+      description: "Metals and mining sector"
+      constituents: 15
+      importance: "medium"
+      category: "materials"
+      cyclical: true
+      commodity_linked: true
+
+  automobile:
+    - symbol: "NIFTY_AUTO.NS"
+      name: "Nifty Auto"
+      exchange: "NSE"
+      description: "Automobile sector"
+      constituents: 15
+      importance: "medium"
+      category: "automobile"
+      cyclical: true
+
+# Thematic and Strategy Indices
+thematic_indices:
+  dividend:
+    - symbol: "NIFTY_DIV_OPPS_50.NS"
+      name: "Nifty Dividend Opportunities 50"
+      exchange: "NSE"
+      description: "High dividend yielding stocks"
+      constituents: 50
+      importance: "low"
+      category: "dividend"
+      strategy: "income"
+
+  quality:
+    - symbol: "NIFTY_QUALITY_30.NS"
+      name: "Nifty Quality 30"
+      exchange: "NSE"
+      description: "Quality stocks based on ROE, Debt/Equity, EPS growth"
+      constituents: 30
+      importance: "low"
+      category: "quality"
+      strategy: "quality"
+
+  momentum:
+    - symbol: "NIFTY_ALPHA_50.NS"
+      name: "Nifty Alpha 50"
+      exchange: "NSE"
+      description: "High alpha generating stocks"
+      constituents: 50
+      importance: "low"
+      category: "alpha"
+      strategy: "momentum"
+
+  volatility:
+    - symbol: "INDIA_VIX.NS"
+      name: "India VIX"
+      exchange: "NSE"
+      description: "Volatility index for Indian markets"
+      importance: "high"
+      category: "volatility"
+      type: "fear_gauge"
+
+# Global Indices for Comparison (Indian market hours consideration)
+global_comparison:
+  us_markets:
+    - symbol: "^GSPC"
+      name: "S&P 500"
+      exchange: "NYSE"
+      description: "US large cap index"
+      importance: "high"
+      category: "global_benchmark"
+      correlation_with_nifty: "medium"
+    
+    - symbol: "^IXIC"
+      name: "NASDAQ"
+      exchange: "NASDAQ"
+      description: "US tech-heavy index"
+      importance: "medium"
+      category: "global_tech"
+      
+  asian_markets:
+    - symbol: "^HSI"
+      name: "Hang Seng"
+      exchange: "HKEX"
+      description: "Hong Kong market index"
+      importance: "medium"
+      category: "asian_markets"
+    
+    - symbol: "000001.SS"
+      name: "Shanghai Composite"
+      exchange: "SSE"
+      description: "Chinese market index"
+      importance: "medium"
+      category: "asian_markets"
+
+# Currency and Commodity (affecting Indian markets)
+currency_commodity:
+  currency:
+    - symbol: "USDINR=X"
+      name: "USD/INR"
+      description: "US Dollar to Indian Rupee"
+      importance: "high"
+      category: "currency"
+      impact_on_market: "high"
+  
+  commodities:
+    - symbol: "GC=F"
+      name: "Gold Futures"
+      description: "Gold price (important for Indian market)"
+      importance: "medium"
+      category: "commodity"
+    
+    - symbol: "CL=F"
+      name: "Crude Oil"
+      description: "Crude oil price (high impact on Indian economy)"
+      importance: "high"
+      category: "commodity"
+      impact_on_market: "high"
+
+# Data Fetching Configuration
+data_config:
+  default_period: "1y"  # 1 year historical data for Version 1
+  intervals_supported:
+    - "1d"    # Daily data (primary for Version 1)
+    - "1wk"   # Weekly data
+    - "1mo"   # Monthly data
+  
+  retry_settings:
+    max_retries: 3
+    retry_delay: 2  # seconds
+  
+  data_validation:
+    min_data_points: 30  # Minimum days of data required
+    check_weekends: false  # Indian markets closed on weekends
+    
+  market_hours:
+    ist_open: "09:15"
+    ist_close: "15:30"
+    timezone: "Asia/Kolkata"
+
+# Priority for Version 1 (Basic Analysis)
+priority_tracking:
+  tier_1:  # High importance - track daily
+    - "^NSEI"
+    - "^BSESN" 
+    - "NIFTY_BANK.NS"
+    - "NIFTY_IT.NS"
+    - "INDIA_VIX.NS"
+    - "USDINR=X"
+  
+  tier_2:  # Medium importance - track weekly
+    - "NIFTY_NEXT_50.NS"
+    - "NIFTY_FIN_SERVICE.NS"
+    - "NIFTY_PHARMA.NS"
+    - "NIFTY_AUTO.NS"
+    - "NIFTY_METAL.NS"
+  
+  tier_3:  # Low importance - track monthly
+    - "NIFTY_SMLCAP_100.NS"
+    - "NIFTY_MIDCAP_100.NS"
+    - "NIFTY_REALTY.NS"

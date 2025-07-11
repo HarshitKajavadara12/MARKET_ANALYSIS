@@ -1,0 +1,312 @@
+# Technical Indicators Configuration for Market Research System v1.0
+# Configuration for all technical indicators used in analysis
+# Created: 2022-01-15
+# Last Updated: 2022-12-20
+
+# Moving Averages Configuration
+moving_averages:
+  simple_moving_average:
+    enabled: true
+    periods: [5, 10, 20, 50, 100, 200]
+    default_period: 20
+    
+  exponential_moving_average:
+    enabled: true
+    periods: [5, 10, 20, 50, 100, 200]
+    default_period: 20
+    smoothing_factor: 2
+    
+  weighted_moving_average:
+    enabled: false
+    periods: [10, 20, 50]
+    default_period: 20
+
+# Momentum Indicators Configuration
+momentum_indicators:
+  relative_strength_index:
+    enabled: true
+    period: 14
+    overbought_threshold: 80
+    oversold_threshold: 20
+    
+  stochastic_oscillator:
+    enabled: true
+    k_period: 14
+    d_period: 3
+    smooth_k: 3
+    overbought_threshold: 80
+    oversold_threshold: 20
+    
+  williams_percent_r:
+    enabled: true
+    period: 14
+    overbought_threshold: -20
+    oversold_threshold: -80
+    
+  commodity_channel_index:
+    enabled: true
+    period: 20
+    overbought_threshold: 100
+    oversold_threshold: -100
+    
+  momentum:
+    enabled: true
+    period: 10
+    
+  rate_of_change:
+    enabled: true
+    period: 12
+
+# Trend Indicators Configuration
+trend_indicators:
+  macd:
+    enabled: true
+    fast_period: 12
+    slow_period: 26
+    signal_period: 9
+    
+  average_directional_index:
+    enabled: true
+    period: 14
+    strong_trend_threshold: 25
+    
+  parabolic_sar:
+    enabled: true
+    acceleration_factor: 0.02
+    maximum_acceleration: 0.2
+    
+  aroon:
+    enabled: true
+    period: 14
+    strong_trend_threshold: 70
+    
+  directional_movement_index:
+    enabled: true
+    period: 14
+
+# Volatility Indicators Configuration
+volatility_indicators:
+  bollinger_bands:
+    enabled: true
+    period: 20
+    standard_deviations: 2
+    
+  average_true_range:
+    enabled: true
+    period: 14
+    
+  standard_deviation:
+    enabled: true
+    period: 20
+    
+  chaikin_volatility:
+    enabled: true
+    ema_period: 10
+    rate_of_change_period: 10
+
+# Volume Indicators Configuration
+volume_indicators:
+  on_balance_volume:
+    enabled: true
+    
+  accumulation_distribution_line:
+    enabled: true
+    
+  chaikin_money_flow:
+    enabled: true
+    period: 20
+    
+  volume_weighted_average_price:
+    enabled: true
+    
+  money_flow_index:
+    enabled: true
+    period: 14
+    overbought_threshold: 80
+    oversold_threshold: 20
+    
+  ease_of_movement:
+    enabled: true
+    period: 14
+    scale: 1000000
+    
+  negative_volume_index:
+    enabled: false
+    
+  positive_volume_index:
+    enabled: false
+
+# Support and Resistance Configuration
+support_resistance:
+  pivot_points:
+    enabled: true
+    method: "standard"  # standard, fibonacci, woodie, camarilla
+    
+  fibonacci_retracement:
+    enabled: true
+    levels: [23.6, 38.2, 50.0, 61.8, 78.6]
+    
+  support_resistance_levels:
+    enabled: true
+    lookback_period: 20
+    min_touches: 2
+
+# Pattern Recognition Configuration
+pattern_recognition:
+  candlestick_patterns:
+    enabled: true
+    patterns:
+      - "doji"
+      - "hammer"
+      - "hanging_man"
+      - "shooting_star"
+      - "engulfing_bullish"
+      - "engulfing_bearish"
+      - "morning_star"
+      - "evening_star"
+      - "three_white_soldiers"
+      - "three_black_crows"
+    
+  chart_patterns:
+    enabled: false
+    patterns:
+      - "head_and_shoulders"
+      - "double_top"
+      - "double_bottom"
+      - "triangle"
+      - "flag"
+      - "pennant"
+
+# Custom Indicators Configuration
+custom_indicators:
+  supertrend:
+    enabled: true
+    period: 10
+    multiplier: 3
+    
+  ichimoku_cloud:
+    enabled: true
+    tenkan_period: 9
+    kijun_period: 26
+    senkou_b_period: 52
+    displacement: 26
+    
+  vortex_indicator:
+    enabled: true
+    period: 14
+    
+  know_sure_thing:
+    enabled: true
+    roc1_period: 10
+    roc2_period: 15
+    roc3_period: 20
+    roc4_period: 30
+    sma1_period: 10
+    sma2_period: 10
+    sma3_period: 10
+    sma4_period: 15
+
+# Indian Market Specific Configuration
+indian_market_specific:
+  nifty_correlation:
+    enabled: true
+    benchmark_symbol: "^NSEI"
+    correlation_period: 50
+    
+  sector_relative_strength:
+    enabled: true
+    sectors:
+      - "NIFTY_BANK"
+      - "NIFTY_IT"
+      - "NIFTY_PHARMA"
+      - "NIFTY_AUTO"
+      - "NIFTY_FMCG"
+      - "NIFTY_METAL"
+      - "NIFTY_ENERGY"
+      - "NIFTY_REALTY"
+    
+  delivery_percentage:
+    enabled: true
+    significance_threshold: 60  # Above 60% considered high delivery
+    
+  fii_dii_flow:
+    enabled: true
+    correlation_with_price: true
+
+# Calculation Settings
+calculation_settings:
+  minimum_data_points: 100  # Minimum data points required for indicator calculation
+  
+  data_validation:
+    check_gaps: true
+    max_gap_days: 5
+    fill_method: "forward_fill"
+    
+  performance_optimization:
+    use_numba: true
+    parallel_processing: false
+    chunk_size: 1000
+    
+  precision:
+    decimal_places: 4
+    rounding_method: "round"
+
+# Alert Thresholds for Indicators
+alert_thresholds:
+  rsi:
+    overbought_alert: 80
+    oversold_alert: 20
+    
+  macd:
+    signal_crossover: true
+    histogram_divergence: true
+    
+  bollinger_bands:
+    squeeze_alert: true
+    breakout_alert: true
+    
+  volume:
+    unusual_volume_multiplier: 3.0
+    
+  price:
+    support_resistance_breach: true
+    
+# Backtesting Configuration
+backtesting:
+  enabled: true
+  lookback_period: 252  # Trading days (1 year)
+  benchmark_comparison: true
+  transaction_costs: 0.001  # 0.1% transaction cost
+  
+# Export Settings
+export_settings:
+  formats: ["csv", "json", "excel"]
+  include_raw_data: false
+  timestamp_format: "%Y-%m-%d %H:%M:%S"
+  
+# Update Frequency
+update_frequency:
+  intraday: "5min"  # 5 minute intervals during market hours
+  end_of_day: "daily"
+  weekly_review: "sunday"
+  monthly_review: "first_monday"
+
+# Market Hours (Indian Stock Market)
+market_hours:
+  pre_market: "09:00-09:15"
+  regular_session: "09:15-15:30"
+  post_market: "15:40-16:00"
+  timezone: "Asia/Kolkata"
+  
+# Data Sources Priority
+data_sources:
+  primary: "yahoo_finance"
+  secondary: "nse_data"
+  fallback: "cached_data"
+  
+# Quality Control
+quality_control:
+  data_completeness_threshold: 95  # Minimum 95% data completeness
+  outlier_detection: true
+  outlier_threshold: 3  # Standard deviations
+  data_consistency_checks: true

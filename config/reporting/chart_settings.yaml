@@ -1,0 +1,308 @@
+# Chart Settings Configuration for Market Research System v1.0
+# Comprehensive chart styling, layout, and behavioral configurations
+
+chart_settings:
+  # Global chart settings
+  global:
+    # Default figure settings
+    figure:
+      figsize: [12, 8]  # inches [width, height]
+      dpi: 300          # dots per inch for high quality
+      facecolor: "white"
+      edgecolor: "none"
+      
+    # Font settings
+    font:
+      family: "Arial"
+      size: 10
+      weight: "normal"
+      
+    # Title settings
+    title:
+      fontsize: 16
+      fontweight: "bold"
+      pad: 20
+      
+    # Axis settings
+    axes:
+      titlesize: 14
+      labelsize: 12
+      grid: true
+      grid_alpha: 0.3
+      spines_color: "#cccccc"
+      
+    # Legend settings
+    legend:
+      fontsize: 10
+      frameon: true
+      fancybox: true
+      shadow: true
+      framealpha: 0.9
+      
+    # Grid settings
+    grid:
+      alpha: 0.3
+      linestyle: "--"
+      linewidth: 0.5
+      color: "#cccccc"
+
+  # Price chart settings
+  price_charts:
+    candlestick:
+      up_color: "#00ff00"      # Green for up candles
+      down_color: "#ff0000"    # Red for down candles
+      wick_color: "#000000"    # Black for wicks
+      volume_color: "#1f77b4"  # Blue for volume bars
+      volume_alpha: 0.7
+      
+      # Moving averages on price charts
+      moving_averages:
+        sma_20:
+          color: "#ff7f0e"     # Orange
+          linewidth: 1.5
+          linestyle: "-"
+          
+        sma_50:
+          color: "#2ca02c"     # Green
+          linewidth: 1.5
+          linestyle: "-"
+          
+        ema_20:
+          color: "#d62728"     # Red
+          linewidth: 1.5
+          linestyle: "--"
+          
+      # Support and resistance lines
+      support_resistance:
+        support_color: "#2ca02c"  # Green
+        resistance_color: "#d62728"  # Red
+        line_width: 2
+        line_style: "--"
+        alpha: 0.8
+        
+    line_chart:
+      linewidth: 2
+      marker: "o"
+      markersize: 4
+      alpha: 0.8
+      
+    # Multiple stocks comparison
+    multi_stock:
+      colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", 
+               "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]
+      linewidth: 2
+      normalize_prices: true  # Normalize to 100 for comparison
+      
+  # Technical indicator charts
+  technical_indicators:
+    rsi:
+      chart_height_ratio: 0.3  # Relative to price chart
+      color: "#9467bd"         # Purple
+      linewidth: 2
+      overbought_line: 70
+      oversold_line: 30
+      signal_lines:
+        color: "#ff0000"       # Red
+        linestyle: "--"
+        alpha: 0.7
+        
+    macd:
+      chart_height_ratio: 0.3
+      macd_color: "#1f77b4"    # Blue
+      signal_color: "#ff7f0e"  # Orange
+      histogram_color: "#2ca02c"  # Green
+      linewidth: 2
+      
+    bollinger_bands:
+      upper_color: "#ff7f0e"   # Orange
+      lower_color: "#ff7f0e"   # Orange
+      middle_color: "#1f77b4"  # Blue (SMA)
+      fill_alpha: 0.1
+      linewidth: 1.5
+      
+    volume:
+      chart_height_ratio: 0.2
+      up_color: "#00ff00"      # Green
+      down_color: "#ff0000"    # Red
+      alpha: 0.7
+      
+  # Sector analysis charts
+  sector_charts:
+    heatmap:
+      colormap: "RdYlGn"       # Red-Yellow-Green
+      center: 0                # Center colormap at 0%
+      annot: true             # Show values in cells
+      fmt: ".2f"              # Format for annotations
+      square: true            # Square cells
+      cbar_kws:
+        label: "Returns (%)"
+        
+    sector_performance:
+      chart_type: "horizontal_bar"
+      positive_color: "#2ca02c"  # Green
+      negative_color: "#d62728"  # Red
+      bar_height: 0.8
+      
+    sector_rotation:
+      bubble_size_column: "market_cap"
+      x_axis: "momentum"
+      y_axis: "relative_strength"
+      alpha: 0.7
+      edge_color: "black"
+      
+  # Correlation charts
+  correlation_charts:
+    correlation_matrix:
+      colormap: "RdBu_r"       # Red-Blue reversed
+      center: 0
+      annot: true
+      fmt: ".2f"
+      square: true
+      mask_upper: false        # Show full matrix
+      
+    correlation_network:
+      node_size: 1000
+      node_color: "#1f77b4"
+      edge_threshold: 0.5      # Only show correlations > 0.5
+      layout: "spring"
+      
+  # Economic indicator charts
+  economic_charts:
+    gdp_chart:
+      color: "#2ca02c"         # Green
+      linewidth: 3
+      marker: "o"
+      markersize: 6
+      
+    inflation_chart:
+      color: "#d62728"         # Red
+      linewidth: 3
+      fill_between: true
+      alpha: 0.3
+      
+    interest_rate_chart:
+      color: "#9467bd"         # Purple
+      linewidth: 3
+      step_plot: true
+      
+  # Portfolio analysis charts
+  portfolio_charts:
+    pie_chart:
+      startangle: 90
+      autopct: "%1.1f%%"
+      explode_largest: 0.1     # Explode largest slice
+      colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", 
+               "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]
+      
+    risk_return_scatter:
+      marker: "o"
+      markersize: 100
+      alpha: 0.7
+      edge_color: "black"
+      
+    drawdown_chart:
+      fill_color: "#d62728"    # Red
+      alpha: 0.3
+      line_color: "#d62728"
+      linewidth: 2
+      
+  # Performance comparison charts
+  comparison_charts:
+    benchmark_comparison:
+      portfolio_color: "#1f77b4"  # Blue
+      benchmark_color: "#ff7f0e"  # Orange
+      outperformance_color: "#2ca02c"  # Green
+      underperformance_color: "#d62728"  # Red
+      linewidth: 2
+      
+    rolling_metrics:
+      window_size: 252         # 1 year rolling window
+      alpha_color: "#2ca02c"   # Green
+      beta_color: "#1f77b4"    # Blue
+      sharpe_color: "#9467bd"  # Purple
+      
+# Chart themes
+themes:
+  professional:
+    background_color: "#ffffff"
+    grid_color: "#e0e0e0"
+    text_color: "#333333"
+    accent_color: "#1f77b4"
+    
+  dark:
+    background_color: "#2e2e2e"
+    grid_color: "#555555"
+    text_color: "#ffffff"
+    accent_color: "#00d4ff"
+    
+  colorful:
+    background_color: "#f8f9fa"
+    grid_color: "#dee2e6"
+    text_color: "#212529"
+    accent_color: "#007bff"
+    
+# Export settings for charts
+export:
+  # Supported formats
+  formats: ["png", "pdf", "svg", "jpg"]
+  
+  # Quality settings by format
+  png:
+    dpi: 300
+    transparent: false
+    
+  pdf:
+    dpi: 300
+    bbox_inches: "tight"
+    
+  svg:
+    transparent: true
+    
+  jpg:
+    dpi: 300
+    quality: 95
+    
+# Interactive chart settings (for web dashboards)
+interactive:
+  plotly_settings:
+    template: "plotly_white"
+    showlegend: true
+    width: 1200
+    height: 600
+    
+  # Hover settings
+  hover:
+    mode: "x unified"
+    bgcolor: "rgba(255,255,255,0.9)"
+    bordercolor: "#333333"
+    
+  # Zoom and pan
+  zoom:
+    enabled: true
+    double_click: "reset"
+    
+# Animation settings
+animation:
+  enabled: false           # Disable for static reports
+  duration: 1000          # milliseconds
+  easing: "linear"
+  
+# Accessibility settings
+accessibility:
+  high_contrast: false
+  colorblind_friendly: true
+  alt_text: true
+  
+# Performance optimization
+performance:
+  # Caching settings
+  cache_charts: true
+  cache_duration: "1h"
+  
+  # Memory settings
+  max_memory_per_chart: "100MB"
+  cleanup_temp_files: true
+  
+  # Parallel processing
+  parallel_chart_generation: false
+  max_workers: 2

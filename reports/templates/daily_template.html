@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Market Research Report - {{date}}</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/charts.css">
+    <link rel="stylesheet" href="styles/tables.css">
+    <style>
+        @media print {
+            .no-print { display: none; }
+            body { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="report-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>Market Research System v1.0</h1>
+                    <p class="tagline">Independent Market Analysis & Insights</p>
+                </div>
+                <div class="report-info">
+                    <h2>Daily Market Report</h2>
+                    <p class="report-date">{{date}}</p>
+                    <p class="report-time">Generated at: {{timestamp}}</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card market-overview">
+                    <h3>Market Overview</h3>
+                    <p>{{market_summary}}</p>
+                    <div class="key-metrics">
+                        <span class="metric">
+                            <strong>Market Trend:</strong> {{market_trend}}
+                        </span>
+                        <span class="metric">
+                            <strong>Volatility:</strong> {{volatility_level}}
+                        </span>
+                    </div>
+                </div>
+                <div class="summary-card key-movers">
+                    <h3>Key Movers</h3>
+                    <ul>
+                        {{#top_gainers}}
+                        <li class="gainer">{{symbol}}: +{{change}}%</li>
+                        {{/top_gainers}}
+                        {{#top_losers}}
+                        <li class="loser">{{symbol}}: {{change}}%</li>
+                        {{/top_losers}}
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Indices Performance -->
+        <section class="indices-section">
+            <h2>Market Indices Performance</h2>
+            <div class="indices-table-container">
+                <table class="indices-table">
+                    <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>Current</th>
+                            <th>Change</th>
+                            <th>Change %</th>
+                            <th>Volume</th>
+                            <th>52W High</th>
+                            <th>52W Low</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#indices}}
+                        <tr class="{{trend_class}}">
+                            <td class="symbol">{{symbol}}</td>
+                            <td class="price">{{current_price}}</td>
+                            <td class="change">{{change}}</td>
+                            <td class="change-percent">{{change_percent}}%</td>
+                            <td class="volume">{{volume}}</td>
+                            <td class="high-52w">{{high_52w}}</td>
+                            <td class="low-52w">{{low_52w}}</td>
+                        </tr>
+                        {{/indices}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <h2>Market Visualizations</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Market Indices Trend (30 Days)</h3>
+                    <div class="chart-placeholder">
+                        <img src="{{indices_chart_path}}" alt="Market Indices Trend" class="chart-image">
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Sector Performance</h3>
+                    <div class="chart-placeholder">
+                        <img src="{{sector_chart_path}}" alt="Sector Performance" class="chart-image">
+                    </div>
+                </div>
+                <div class="chart-container full-width">
+                    <h3>Volume Analysis</h3>
+                    <div class="chart-placeholder">
+                        <img src="{{volume_chart_path}}" alt="Volume Analysis" class="chart-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Stocks Analysis -->
+        <section class="stocks-section">
+            <h2>Top Stocks Analysis</h2>
+            <div class="stocks-grid">
+                {{#featured_stocks}}
+                <div class="stock-card">
+                    <div class="stock-header">
+                        <h3>{{symbol}} - {{company_name}}</h3>
+                        <span class="sector-tag">{{sector}}</span>
+                    </div>
+                    <div class="stock-metrics">
+                        <div class="metric-row">
+                            <span class="label">Current Price:</span>
+                            <span class="value price">₹{{current_price}}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">Day Change:</span>
+                            <span class="value {{change_class}}">{{day_change}} ({{day_change_percent}}%)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">RSI:</span>
+                            <span class="value">{{rsi}}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">SMA(20):</span>
+                            <span class="value">₹{{sma_20}}</span>
+                        </div>
+                    </div>
+                    <div class="technical-signals">
+                        <span class="signal {{signal_class}}">{{technical_signal}}</span>
+                    </div>
+                </div>
+                {{/featured_stocks}}
+            </div>
+        </section>
+
+        <!-- Technical Indicators Summary -->
+        <section class="technical-section">
+            <h2>Technical Indicators Summary</h2>
+            <div class="technical-grid">
+                <div class="indicator-card">
+                    <h3>Moving Averages</h3>
+                    <table class="technical-table">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>SMA(20)</th>
+                                <th>SMA(50)</th>
+                                <th>EMA(12)</th>
+                                <th>Signal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#ma_data}}
+                            <tr>
+                                <td>{{symbol}}</td>
+                                <td>{{sma_20}}</td>
+                                <td>{{sma_50}}</td>
+                                <td>{{ema_12}}</td>
+                                <td class="{{signal_class}}">{{signal}}</td>
+                            </tr>
+                            {{/ma_data}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="indicator-card">
+                    <h3>Momentum Indicators</h3>
+                    <table class="technical-table">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>RSI</th>
+                                <th>MACD</th>
+                                <th>Stoch</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#momentum_data}}
+                            <tr>
+                                <td>{{symbol}}</td>
+                                <td class="{{rsi_class}}">{{rsi}}</td>
+                                <td class="{{macd_class}}">{{macd}}</td>
+                                <td>{{stochastic}}</td>
+                                <td class="{{status_class}}">{{status}}</td>
+                            </tr>
+                            {{/momentum_data}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Economic Indicators -->
+        <section class="economic-section">
+            <h2>Economic Indicators</h2>
+            <div class="economic-grid">
+                <div class="economic-card">
+                    <h3>Key Economic Data</h3>
+                    <div class="economic-metrics">
+                        {{#economic_indicators}}
+                        <div class="economic-item">
+                            <span class="indicator-name">{{name}}:</span>
+                            <span class="indicator-value">{{value}}</span>
+                            <span class="indicator-change {{change_class}}">{{change}}</span>
+                        </div>
+                        {{/economic_indicators}}
+                    </div>
+                </div>
+                <div class="economic-card">
+                    <h3>Market Sentiment</h3>
+                    <div class="sentiment-indicators">
+                        <div class="sentiment-item">
+                            <span class="label">Fear & Greed Index:</span>
+                            <span class="value {{fear_greed_class}}">{{fear_greed_value}}</span>
+                        </div>
+                        <div class="sentiment-item">
+                            <span class="label">VIX Level:</span>
+                            <span class="value {{vix_class}}">{{vix_value}}</span>
+                        </div>
+                        <div class="sentiment-item">
+                            <span class="label">Put/Call Ratio:</span>
+                            <span class="value">{{put_call_ratio}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trading Recommendations -->
+        <section class="recommendations-section">
+            <h2>Trading Insights & Recommendations</h2>
+            <div class="recommendations-grid">
+                <div class="recommendation-card bullish">
+                    <h3>Bullish Signals</h3>
+                    <ul>
+                        {{#bullish_signals}}
+                        <li>{{signal}}</li>
+                        {{/bullish_signals}}
+                    </ul>
+                </div>
+                <div class="recommendation-card bearish">
+                    <h3>Bearish Signals</h3>
+                    <ul>
+                        {{#bearish_signals}}
+                        <li>{{signal}}</li>
+                        {{/bearish_signals}}
+                    </ul>
+                </div>
+                <div class="recommendation-card neutral">
+                    <h3>Key Levels to Watch</h3>
+                    <ul>
+                        {{#key_levels}}
+                        <li><strong>{{symbol}}:</strong> Support {{support}} | Resistance {{resistance}}</li>
+                        {{/key_levels}}
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="report-footer">
+            <div class="footer-content">
+                <div class="disclaimer">
+                    <h4>Disclaimer</h4>
+                    <p>This report is for informational purposes only and should not be considered as investment advice. 
+                       Past performance does not guarantee future results. Please consult with a financial advisor before making investment decisions.</p>
+                </div>
+                <div class="system-info">
+                    <p><strong>Market Research System v1.0</strong></p>
+                    <p>Data Sources: Yahoo Finance, FRED API</p>
+                    <p>Report Generated: {{generation_timestamp}}</p>
+                    <p>Next Update: {{next_update_time}}</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Add any JavaScript for interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight extreme values
+            const rsiValues = document.querySelectorAll('.technical-table td');
+            rsiValues.forEach(cell => {
+                const value = parseFloat(cell.textContent);
+                if (!isNaN(value)) {
+                    if (value > 70) cell.classList.add('overbought');
+                    if (value < 30) cell.classList.add('oversold');
+                }
+            });
+            
+            // Add current timestamp
+            const timeElements = document.querySelectorAll('.current-time');
+            const now = new Date().toLocaleString();
+            timeElements.forEach(el => el.textContent = now);
+        });
+    </script>
+</body>
+</html>

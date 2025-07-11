@@ -1,0 +1,31 @@
+[Unit]
+Description=Market Research System v1.0 - Scheduled Data Collection Timer
+Documentation=https://github.com/your-username/market-research-v1
+Requires=market-research.service
+After=market-research.service
+
+[Timer]
+# Run data collection every day at 6:00 AM (Indian market pre-opening)
+OnCalendar=*-*-* 06:00:00
+# Also run on weekdays at 3:45 PM (Indian market closing time)
+OnCalendar=Mon..Fri *-*-* 15:45:00
+# Run weekly report generation on Sundays at 8:00 PM
+OnCalendar=Sun *-*-* 20:00:00
+# Run monthly report on the 1st of every month at 10:00 PM
+OnCalendar=*-*-01 22:00:00
+
+# Timezone for Indian markets
+Timezone=Asia/Kolkata
+
+# Timer behavior settings
+Persistent=true
+AccuracySec=1min
+RandomizedDelaySec=300
+WakeSystem=false
+
+# If the system was down when timer should have triggered, run it when back up
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+Also=market-research.service

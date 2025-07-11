@@ -1,0 +1,277 @@
+# Economic Indicators Configuration for Indian Market Analysis
+# Data sources: RBI, FRED, World Bank, and other economic databases
+
+# Indian Economic Indicators (Primary)
+indian_indicators:
+  monetary_policy:
+    - indicator_id: "IN_REPO_RATE"
+      name: "RBI Repo Rate"
+      source: "RBI"
+      frequency: "monthly"
+      description: "Reserve Bank of India policy repo rate"
+      impact: "high"
+      category: "monetary_policy"
+    
+    - indicator_id: "IN_CRR"
+      name: "Cash Reserve Ratio"
+      source: "RBI"
+      frequency: "monthly"
+      description: "Minimum cash reserves banks must hold"
+      impact: "medium"
+      category: "monetary_policy"
+    
+    - indicator_id: "IN_SLR"
+      name: "Statutory Liquidity Ratio"
+      source: "RBI"
+      frequency: "monthly"
+      description: "Minimum liquid assets banks must maintain"
+      impact: "medium"
+      category: "monetary_policy"
+  
+  inflation:
+    - indicator_id: "IN_CPI"
+      name: "Consumer Price Index"
+      source: "MOSPI"
+      frequency: "monthly"
+      description: "Inflation rate based on consumer prices"
+      impact: "high"
+      category: "inflation"
+    
+    - indicator_id: "IN_WPI"
+      name: "Wholesale Price Index"
+      source: "MOSPI"
+      frequency: "monthly"
+      description: "Inflation at wholesale level"
+      impact: "high"
+      category: "inflation"
+    
+    - indicator_id: "IN_FOOD_INFLATION"
+      name: "Food Inflation"
+      source: "MOSPI"
+      frequency: "monthly"
+      description: "Food price inflation"
+      impact: "medium"
+      category: "inflation"
+  
+  growth:
+    - indicator_id: "IN_GDP_GROWTH"
+      name: "GDP Growth Rate"
+      source: "MOSPI"
+      frequency: "quarterly"
+      description: "Gross Domestic Product growth rate"
+      impact: "high"
+      category: "growth"
+    
+    - indicator_id: "IN_IIP"
+      name: "Index of Industrial Production"
+      source: "MOSPI"
+      frequency: "monthly"
+      description: "Industrial output growth"
+      impact: "high"
+      category: "growth"
+    
+    - indicator_id: "IN_PMI_MANUFACTURING"
+      name: "Manufacturing PMI"
+      source: "IHS_MARKIT"
+      frequency: "monthly"
+      description: "Purchasing Managers Index for manufacturing"
+      impact: "high"
+      category: "growth"
+    
+    - indicator_id: "IN_PMI_SERVICES"
+      name: "Services PMI"
+      source: "IHS_MARKIT"
+      frequency: "monthly"
+      description: "Purchasing Managers Index for services"
+      impact: "high"
+      category: "growth"
+  
+  fiscal:
+    - indicator_id: "IN_FISCAL_DEFICIT"
+      name: "Fiscal Deficit"
+      source: "MOF"
+      frequency: "monthly"
+      description: "Government fiscal deficit as % of GDP"
+      impact: "medium"
+      category: "fiscal"
+    
+    - indicator_id: "IN_TAX_REVENUE"
+      name: "Tax Revenue"
+      source: "MOF"
+      frequency: "monthly"
+      description: "Government tax collections"
+      impact: "medium"
+      category: "fiscal"
+  
+  external_sector:
+    - indicator_id: "IN_FOREX_RESERVES"
+      name: "Foreign Exchange Reserves"
+      source: "RBI"
+      frequency: "weekly"
+      description: "India's forex reserves"
+      impact: "medium"
+      category: "external"
+    
+    - indicator_id: "IN_CURRENT_ACCOUNT"
+      name: "Current Account Balance"
+      source: "RBI"
+      frequency: "quarterly"
+      description: "Balance of payments current account"
+      impact: "high"
+      category: "external"
+    
+    - indicator_id: "IN_TRADE_BALANCE"
+      name: "Trade Balance"
+      source: "DGFT"
+      frequency: "monthly"
+      description: "Export minus import balance"
+      impact: "medium"
+      category: "external"
+
+# Global Indicators (Impact on Indian Markets)
+global_indicators:
+  us_economy:
+    - indicator_id: "FEDFUNDS"
+      name: "US Federal Funds Rate"
+      source: "FRED"
+      frequency: "monthly"
+      description: "US Federal Reserve policy rate"
+      impact: "high"
+      category: "global_monetary"
+    
+    - indicator_id: "DGS10"
+      name: "US 10-Year Treasury Yield"
+      source: "FRED"
+      frequency: "daily"
+      description: "US 10-year government bond yield"
+      impact: "high"
+      category: "global_rates"
+    
+    - indicator_id: "CPIAUCSL"
+      name: "US Consumer Price Index"
+      source: "FRED"
+      frequency: "monthly"
+      description: "US inflation rate"
+      impact: "medium"
+      category: "global_inflation"
+    
+    - indicator_id: "GDP"
+      name: "US GDP"
+      source: "FRED"
+      frequency: "quarterly"
+      description: "US Gross Domestic Product"
+      impact: "medium"
+      category: "global_growth"
+  
+  currency:
+    - indicator_id: "DEXINUS"
+      name: "USD/INR Exchange Rate"
+      source: "FRED"
+      frequency: "daily"
+      description: "US Dollar to Indian Rupee exchange rate"
+      impact: "high"
+      category: "currency"
+    
+    - indicator_id: "DXY"
+      name: "US Dollar Index"
+      source: "YAHOO"
+      frequency: "daily"
+      description: "US Dollar strength index"
+      impact: "high"
+      category: "currency"
+  
+  commodities:
+    - indicator_id: "DCOILWTICO"
+      name: "Crude Oil Price (WTI)"
+      source: "FRED"
+      frequency: "daily"
+      description: "West Texas Intermediate crude oil price"
+      impact: "high"
+      category: "commodities"
+    
+    - indicator_id: "GOLDPMGBD228NLBM"
+      name: "Gold Price"
+      source: "FRED"
+      frequency: "daily"
+      description: "Gold fixing price in USD"
+      impact: "medium"
+      category: "commodities"
+    
+    - indicator_id: "CHRIS/CME_SI1"
+      name: "Silver Price"
+      source: "QUANDL"
+      frequency: "daily"
+      description: "Silver futures price"
+      impact: "low"
+      category: "commodities"
+  
+  global_equity:
+    - indicator_id: "VIXCLS"
+      name: "VIX Volatility Index"
+      source: "FRED"
+      frequency: "daily"
+      description: "CBOE Volatility Index"
+      impact: "high"
+      category: "global_equity"
+
+# Market-specific indicators
+market_indicators:
+  india_vix:
+    - indicator_id: "INDIAVIX"
+      name: "India VIX"
+      source: "NSE"
+      frequency: "daily"
+      description: "NSE Volatility Index"
+      impact: "high"
+      category: "market_sentiment"
+  
+  fii_dii_flows:
+    - indicator_id: "FII_EQUITY_FLOWS"
+      name: "FII Equity Flows"
+      source: "NSE"
+      frequency: "daily"
+      description: "Foreign Institutional Investor equity flows"
+      impact: "high"
+      category: "flows"
+    
+    - indicator_id: "DII_EQUITY_FLOWS"
+      name: "DII Equity Flows"
+      source: "NSE"
+      frequency: "daily"
+      description: "Domestic Institutional Investor equity flows"
+      impact: "medium"
+      category: "flows"
+
+# Data collection configuration
+collection_config:
+  update_frequency:
+    daily: ["currency", "commodities", "global_equity", "market_sentiment", "flows"]
+    weekly: ["external"]
+    monthly: ["monetary_policy", "inflation", "fiscal", "global_monetary", "global_inflation"]
+    quarterly: ["growth", "global_growth"]
+  
+  data_sources:
+    primary:
+      rbi: "https://www.rbi.org.in"
+      mospi: "https://mospi.gov.in"
+      nse: "https://www.nseindia.com"
+    
+    secondary:
+      fred: "https://fred.stlouisfed.org"
+      yahoo: "https://finance.yahoo.com"
+      quandl: "https://www.quandl.com"
+  
+  retry_config:
+    max_retries: 3
+    retry_delay: 2
+    timeout: 30
+  
+  data_validation:
+    check_missing_values: true
+    outlier_detection: true
+    consistency_check: true
+    
+  storage:
+    format: "parquet"
+    compression: "snappy"
+    backup_enabled: true

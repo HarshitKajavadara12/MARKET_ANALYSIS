@@ -1,0 +1,165 @@
+# Correlation Analysis Settings for Market Research System v1.0
+# Configuration for correlation analysis between stocks, sectors, and economic indicators
+
+correlation_analysis:
+  # General correlation settings
+  general:
+    method: "pearson"  # Options: pearson, spearman, kendall
+    min_periods: 30    # Minimum number of observations required
+    rolling_window: 60 # Days for rolling correlation
+    significance_level: 0.05  # P-value threshold for significance
+    
+  # Stock-to-stock correlation settings
+  stock_correlation:
+    enabled: true
+    timeframes:
+      - "1M"    # 1 month
+      - "3M"    # 3 months
+      - "6M"    # 6 months
+      - "1Y"    # 1 year
+      - "2Y"    # 2 years
+    
+    # Correlation thresholds for categorization
+    thresholds:
+      high_positive: 0.7
+      moderate_positive: 0.3
+      low_correlation: 0.1
+      moderate_negative: -0.3
+      high_negative: -0.7
+    
+    # Stock pairs to analyze
+    focus_pairs:
+      - ["RELIANCE.NS", "ONGC.NS"]
+      - ["TCS.NS", "INFY.NS"]
+      - ["HDFCBANK.NS", "ICICIBANK.NS"]
+      - ["WIPRO.NS", "TECHM.NS"]
+      - ["MARUTI.NS", "TATAMOTORS.NS"]
+  
+  # Sector correlation settings
+  sector_correlation:
+    enabled: true
+    sectors:
+      - "NIFTY_IT"
+      - "NIFTY_BANK"
+      - "NIFTY_AUTO"
+      - "NIFTY_PHARMA"
+      - "NIFTY_FMCG"
+      - "NIFTY_METALS"
+      - "NIFTY_ENERGY"
+      - "NIFTY_REALTY"
+    
+    # Cross-sector analysis
+    cross_sector_analysis: true
+    include_market_correlation: true  # Correlation with NIFTY 50
+  
+  # Economic indicator correlation
+  economic_correlation:
+    enabled: true
+    indicators:
+      - "GDP_GROWTH"
+      - "INFLATION_RATE"
+      - "REPO_RATE"
+      - "USD_INR"
+      - "CRUDE_OIL"
+      - "GOLD_PRICE"
+      - "FII_FLOWS"
+      - "DII_FLOWS"
+    
+    # Lag analysis settings
+    lag_analysis:
+      enabled: true
+      max_lag_days: 30
+      lag_intervals: [1, 3, 5, 10, 15, 20, 30]
+  
+  # Market regime correlation
+  regime_correlation:
+    enabled: true
+    regimes:
+      bull_market:
+        condition: "market_return > 0.15"  # Annual return > 15%
+        lookback_period: 252  # Trading days
+      
+      bear_market:
+        condition: "market_return < -0.10"  # Annual return < -10%
+        lookback_period: 252
+      
+      sideways_market:
+        condition: "abs(market_return) <= 0.15"
+        lookback_period: 252
+      
+      high_volatility:
+        condition: "volatility > 0.25"  # VIX > 25
+        lookback_period: 60
+      
+      low_volatility:
+        condition: "volatility < 0.15"  # VIX < 15
+        lookback_period: 60
+
+# Output settings
+output:
+  # Report generation
+  generate_reports: true
+  report_formats: ["pdf", "html", "csv"]
+  
+  # Visualization settings
+  generate_heatmaps: true
+  correlation_matrix_size: [12, 10]  # Figure size in inches
+  heatmap_colormap: "RdBu_r"  # Red-Blue reversed colormap
+  
+  # Statistical tests
+  include_significance_tests: true
+  include_confidence_intervals: true
+  confidence_level: 0.95
+  
+  # Export settings
+  export_to_csv: true
+  export_correlation_matrices: true
+  include_metadata: true
+
+# Performance settings
+performance:
+  # Memory management
+  chunk_size: 1000  # Process data in chunks
+  max_memory_usage: "2GB"
+  
+  # Parallel processing
+  use_multiprocessing: true
+  max_workers: 4
+  
+  # Caching
+  cache_results: true
+  cache_duration: "24h"  # Cache validity period
+
+# Alert settings
+alerts:
+  # Correlation breakdowns
+  correlation_breakdown:
+    enabled: true
+    threshold_change: 0.3  # Alert if correlation changes by > 0.3
+    notification_methods: ["email", "log"]
+  
+  # New high/low correlations
+  extreme_correlations:
+    enabled: true
+    high_threshold: 0.9
+    low_threshold: -0.9
+    
+  # Sector rotation alerts
+  sector_rotation:
+    enabled: true
+    rotation_threshold: 0.2  # 20% change in sector correlation
+
+# Data quality settings
+data_quality:
+  # Missing data handling
+  max_missing_percentage: 10  # Maximum 10% missing data allowed
+  interpolation_method: "linear"
+  
+  # Outlier detection
+  outlier_detection: true
+  outlier_method: "iqr"  # Interquartile range method
+  outlier_threshold: 3  # 3 IQR from median
+  
+  # Data validation
+  validate_data_ranges: true
+  price_change_limit: 0.25  # 25% daily change limit

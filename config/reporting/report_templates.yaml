@@ -1,0 +1,316 @@
+# Report Templates Configuration for Market Research System v1.0
+# Defines templates, layouts, and styling for various report types
+
+report_templates:
+  # Daily Market Summary Report
+  daily_summary:
+    template_name: "Daily Market Analysis"
+    filename_pattern: "daily_market_summary_{date}.pdf"
+    layout: "portrait"
+    
+    sections:
+      - name: "executive_summary"
+        title: "Executive Summary"
+        order: 1
+        include_charts: false
+        max_length: 200  # words
+        
+      - name: "market_overview"
+        title: "Market Overview"
+        order: 2
+        include_charts: true
+        charts: ["nifty_performance", "sector_heatmap"]
+        
+      - name: "top_movers"
+        title: "Top Gainers & Losers"
+        order: 3
+        include_charts: true
+        charts: ["top_gainers_chart", "top_losers_chart"]
+        top_count: 10
+        
+      - name: "sector_analysis"
+        title: "Sector Performance"
+        order: 4
+        include_charts: true
+        charts: ["sector_performance_bar", "sector_comparison"]
+        
+      - name: "technical_indicators"
+        title: "Technical Indicators"
+        order: 5
+        include_charts: true
+        charts: ["rsi_overview", "moving_averages"]
+        
+      - name: "economic_indicators"
+        title: "Economic Indicators Impact"
+        order: 6
+        include_charts: true
+        charts: ["economic_impact_chart"]
+        
+    styling:
+      font_family: "Arial"
+      title_font_size: 16
+      header_font_size: 14
+      body_font_size: 11
+      color_scheme: "blue_theme"
+      logo_position: "top_right"
+      
+  # Weekly Sector Analysis Report
+  weekly_sector:
+    template_name: "Weekly Sector Analysis"
+    filename_pattern: "weekly_sector_analysis_{week}_{year}.pdf"
+    layout: "portrait"
+    
+    sections:
+      - name: "sector_overview"
+        title: "Sector Overview"
+        order: 1
+        include_charts: true
+        charts: ["weekly_sector_performance", "sector_rotation_matrix"]
+        
+      - name: "sector_deep_dive"
+        title: "Sector Deep Dive"
+        order: 2
+        include_charts: true
+        charts: ["sector_stock_performance", "sector_fundamentals"]
+        
+      - name: "correlation_analysis"
+        title: "Inter-Sector Correlations"
+        order: 3
+        include_charts: true
+        charts: ["correlation_heatmap", "correlation_trends"]
+        
+      - name: "outlook"
+        title: "Sector Outlook"
+        order: 4
+        include_charts: false
+        
+    styling:
+      font_family: "Arial"
+      title_font_size: 18
+      header_font_size: 14
+      body_font_size: 11
+      color_scheme: "green_theme"
+      
+  # Monthly Performance Review
+  monthly_performance:
+    template_name: "Monthly Performance Review"
+    filename_pattern: "monthly_performance_{month}_{year}.pdf"
+    layout: "portrait"
+    
+    sections:
+      - name: "monthly_summary"
+        title: "Monthly Summary"
+        order: 1
+        include_charts: true
+        charts: ["monthly_returns_chart", "cumulative_returns"]
+        
+      - name: "portfolio_analysis"
+        title: "Portfolio Analysis"
+        order: 2
+        include_charts: true
+        charts: ["portfolio_allocation", "risk_return_scatter"]
+        
+      - name: "performance_attribution"
+        title: "Performance Attribution"
+        order: 3
+        include_charts: true
+        charts: ["sector_contribution", "stock_contribution"]
+        
+      - name: "risk_metrics"
+        title: "Risk Metrics"
+        order: 4
+        include_charts: true
+        charts: ["drawdown_chart", "volatility_analysis"]
+        
+      - name: "benchmark_comparison"
+        title: "Benchmark Comparison"
+        order: 5
+        include_charts: true
+        charts: ["vs_nifty_comparison", "rolling_alpha_beta"]
+        
+    styling:
+      font_family: "Arial"
+      title_font_size: 20
+      header_font_size: 16
+      body_font_size: 12
+      color_scheme: "professional_blue"
+      
+  # Custom Research Report
+  custom_research:
+    template_name: "Custom Research Report"
+    filename_pattern: "custom_research_{topic}_{date}.pdf"
+    layout: "portrait"
+    
+    sections:
+      - name: "research_objective"
+        title: "Research Objective"
+        order: 1
+        include_charts: false
+        
+      - name: "methodology"
+        title: "Methodology"
+        order: 2
+        include_charts: false
+        
+      - name: "data_analysis"
+        title: "Data Analysis"
+        order: 3
+        include_charts: true
+        charts: ["custom_chart_1", "custom_chart_2"]
+        
+      - name: "findings"
+        title: "Key Findings"
+        order: 4
+        include_charts: true
+        
+      - name: "recommendations"
+        title: "Recommendations"
+        order: 5
+        include_charts: false
+        
+    styling:
+      font_family: "Times New Roman"
+      title_font_size: 18
+      header_font_size: 14
+      body_font_size: 11
+      color_scheme: "academic"
+
+# Global template settings
+global_settings:
+  # Page layout
+  page_size: "A4"
+  margins:
+    top: 2.5    # cm
+    bottom: 2.5 # cm
+    left: 2.0   # cm
+    right: 2.0  # cm
+    
+  # Header and footer
+  header:
+    include: true
+    height: 1.5  # cm
+    content: "Market Research System v1.0"
+    
+  footer:
+    include: true
+    height: 1.5  # cm
+    left_content: "Generated on {date}"
+    center_content: "Confidential"
+    right_content: "Page {page} of {total_pages}"
+    
+  # Watermark
+  watermark:
+    enabled: false
+    text: "DRAFT"
+    opacity: 0.1
+    
+  # Logo settings
+  logo:
+    enabled: true
+    path: "assets/logo.png"
+    width: 3.0   # cm
+    height: 1.5  # cm
+
+# Chart settings for reports
+chart_settings:
+  # Default chart dimensions
+  default_size:
+    width: 12    # inches
+    height: 8    # inches
+    dpi: 300     # resolution
+    
+  # Color schemes
+  color_schemes:
+    blue_theme:
+      primary: "#1f77b4"
+      secondary: "#ff7f0e"
+      background: "#f8f9fa"
+      grid: "#e9ecef"
+      
+    green_theme:
+      primary: "#2ca02c"
+      secondary: "#d62728"
+      background: "#f8f9fa"
+      grid: "#e9ecef"
+      
+    professional_blue:
+      primary: "#003f7f"
+      secondary: "#ff6b35"
+      background: "#ffffff"
+      grid: "#cccccc"
+      
+    academic:
+      primary: "#333333"
+      secondary: "#666666"
+      background: "#ffffff"
+      grid: "#dddddd"
+  
+  # Chart types configuration
+  chart_types:
+    line_chart:
+      line_width: 2
+      marker_size: 6
+      grid: true
+      
+    bar_chart:
+      bar_width: 0.8
+      edge_color: "black"
+      edge_width: 0.5
+      
+    heatmap:
+      colormap: "RdYlBu_r"
+      annotation: true
+      square: true
+      
+    scatter_plot:
+      marker_size: 50
+      alpha: 0.7
+      
+# Content templates
+content_templates:
+  # Standard disclaimers
+  disclaimers:
+    standard: |
+      This report is prepared for informational purposes only and should not be 
+      considered as investment advice. Past performance does not guarantee future 
+      results. Please consult with a qualified investment advisor before making 
+      investment decisions.
+      
+    risk_warning: |
+      Investment in securities market are subject to market risks. Please read 
+      all related documents carefully before investing.
+      
+  # Standard conclusions
+  conclusions:
+    daily_summary: |
+      The analysis is based on available market data and technical indicators. 
+      Market conditions can change rapidly, and investors should monitor 
+      developments closely.
+      
+    sector_analysis: |
+      Sector rotation patterns indicate potential opportunities and risks. 
+      Diversification across sectors remains important for risk management.
+      
+# Export settings
+export_settings:
+  # PDF settings
+  pdf:
+    quality: "high"
+    compress: true
+    embed_fonts: true
+    security:
+      encrypt: false
+      allow_printing: true
+      allow_copying: false
+      
+  # HTML settings
+  html:
+    responsive: true
+    include_css: true
+    include_javascript: false
+    
+  # Excel settings
+  excel:
+    include_charts: true
+    separate_sheets: true
+    freeze_panes: true

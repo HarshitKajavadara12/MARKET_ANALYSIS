@@ -1,0 +1,261 @@
+# Indian Stock Market Symbols Configuration
+# NSE (National Stock Exchange) and BSE (Bombay Stock Exchange) symbols
+
+# Market configuration
+market_config:
+  primary_exchange: "NSE"
+  secondary_exchange: "BSE"
+  currency: "INR"
+  timezone: "Asia/Kolkata"
+  trading_hours:
+    open: "09:15"
+    close: "15:30"
+    pre_market_open: "09:00"
+    post_market_close: "16:00"
+
+# Top 50 Nifty stocks by market capitalization (2022)
+nifty_50:
+  # Large Cap IT Stocks
+  - symbol: "TCS.NS"
+    name: "Tata Consultancy Services"
+    sector: "Information Technology"
+    market_cap_rank: 1
+  
+  - symbol: "RELIANCE.NS"
+    name: "Reliance Industries"
+    sector: "Oil & Gas"
+    market_cap_rank: 2
+  
+  - symbol: "HDFCBANK.NS"
+    name: "HDFC Bank"
+    sector: "Banking"
+    market_cap_rank: 3
+  
+  - symbol: "INFY.NS"
+    name: "Infosys"
+    sector: "Information Technology"
+    market_cap_rank: 4
+  
+  - symbol: "ICICIBANK.NS"
+    name: "ICICI Bank"
+    sector: "Banking"
+    market_cap_rank: 5
+  
+  - symbol: "HINDUNILVR.NS"
+    name: "Hindustan Unilever"
+    sector: "FMCG"
+    market_cap_rank: 6
+  
+  - symbol: "HDFC.NS"
+    name: "Housing Development Finance Corporation"
+    sector: "Financial Services"
+    market_cap_rank: 7
+  
+  - symbol: "ITC.NS"
+    name: "ITC Limited"
+    sector: "FMCG"
+    market_cap_rank: 8
+  
+  - symbol: "KOTAKBANK.NS"
+    name: "Kotak Mahindra Bank"
+    sector: "Banking"
+    market_cap_rank: 9
+  
+  - symbol: "LT.NS"
+    name: "Larsen & Toubro"
+    sector: "Construction"
+    market_cap_rank: 10
+  
+  - symbol: "SBIN.NS"
+    name: "State Bank of India"
+    sector: "Banking"
+    market_cap_rank: 11
+  
+  - symbol: "BHARTIARTL.NS"
+    name: "Bharti Airtel"
+    sector: "Telecommunications"
+    market_cap_rank: 12
+  
+  - symbol: "ASIANPAINT.NS"
+    name: "Asian Paints"
+    sector: "Paints"
+    market_cap_rank: 13
+  
+  - symbol: "HCLTECH.NS"
+    name: "HCL Technologies"
+    sector: "Information Technology"
+    market_cap_rank: 14
+  
+  - symbol: "MARUTI.NS"
+    name: "Maruti Suzuki India"
+    sector: "Automobiles"
+    market_cap_rank: 15
+  
+  - symbol: "AXISBANK.NS"
+    name: "Axis Bank"
+    sector: "Banking"
+    market_cap_rank: 16
+  
+  - symbol: "BAJFINANCE.NS"
+    name: "Bajaj Finance"
+    sector: "Financial Services"
+    market_cap_rank: 17
+  
+  - symbol: "WIPRO.NS"
+    name: "Wipro"
+    sector: "Information Technology"
+    market_cap_rank: 18
+  
+  - symbol: "NESTLEIND.NS"
+    name: "Nestle India"
+    sector: "FMCG"
+    market_cap_rank: 19
+  
+  - symbol: "ULTRACEMCO.NS"
+    name: "UltraTech Cement"
+    sector: "Cement"
+    market_cap_rank: 20
+
+# Additional Nifty 50 stocks (continuing the list)
+nifty_50_extended:
+  - symbol: "ONGC.NS"
+    name: "Oil and Natural Gas Corporation"
+    sector: "Oil & Gas"
+  
+  - symbol: "SUNPHARMA.NS"
+    name: "Sun Pharmaceutical Industries"
+    sector: "Pharmaceuticals"
+  
+  - symbol: "NTPC.NS"
+    name: "NTPC Limited"
+    sector: "Power"
+  
+  - symbol: "TITAN.NS"
+    name: "Titan Company"
+    sector: "Consumer Goods"
+  
+  - symbol: "POWERGRID.NS"
+    name: "Power Grid Corporation"
+    sector: "Power"
+  
+  - symbol: "TECHM.NS"
+    name: "Tech Mahindra"
+    sector: "Information Technology"
+  
+  - symbol: "M&M.NS"
+    name: "Mahindra & Mahindra"
+    sector: "Automobiles"
+  
+  - symbol: "BAJAJFINSV.NS"
+    name: "Bajaj Finserv"
+    sector: "Financial Services"
+  
+  - symbol: "COALINDIA.NS"
+    name: "Coal India"
+    sector: "Mining"
+  
+  - symbol: "HDFCLIFE.NS"
+    name: "HDFC Life Insurance"
+    sector: "Insurance"
+
+# Sector-wise stock selection
+sectors:
+  information_technology:
+    - "TCS.NS"
+    - "INFY.NS"
+    - "HCLTECH.NS"
+    - "WIPRO.NS"
+    - "TECHM.NS"
+    - "MINDTREE.NS"
+    - "MPHASIS.NS"
+    - "LTI.NS"
+  
+  banking:
+    - "HDFCBANK.NS"
+    - "ICICIBANK.NS"
+    - "KOTAKBANK.NS"
+    - "SBIN.NS"
+    - "AXISBANK.NS"
+    - "INDUSINDBK.NS"
+    - "FEDERALBNK.NS"
+    - "PNB.NS"
+  
+  fmcg:
+    - "HINDUNILVR.NS"
+    - "ITC.NS"
+    - "NESTLEIND.NS"
+    - "BRITANNIA.NS"
+    - "DABUR.NS"
+    - "GODREJCP.NS"
+    - "MARICO.NS"
+    - "COLPAL.NS"
+  
+  automobiles:
+    - "MARUTI.NS"
+    - "M&M.NS"
+    - "TATAMOTORS.NS"
+    - "BAJAJ-AUTO.NS"
+    - "EICHERMOT.NS"
+    - "HEROMOTOCO.NS"
+    - "ASHOKLEY.NS"
+    - "TVSMOTOR.NS"
+  
+  pharmaceuticals:
+    - "SUNPHARMA.NS"
+    - "DRREDDY.NS"
+    - "CIPLA.NS"
+    - "DIVISLAB.NS"
+    - "BIOCON.NS"
+    - "LUPIN.NS"
+    - "AUROPHARMA.NS"
+    - "CADILAHC.NS"
+  
+  oil_and_gas:
+    - "RELIANCE.NS"
+    - "ONGC.NS"
+    - "IOC.NS"
+    - "BPCL.NS"
+    - "HINDPETRO.NS"
+    - "GAIL.NS"
+    - "PETRONET.NS"
+    - "OIL.NS"
+
+# Mid-cap stocks for diversification
+mid_cap_stocks:
+  - "GODREJPROP.NS"
+  - "MCDOWELL-N.NS"
+  - "PIDILITIND.NS"
+  - "PAGEIND.NS"
+  - "CONCOR.NS"
+  - "NMDC.NS"
+  - "SAIL.NS"
+  - "JSWSTEEL.NS"
+  - "HINDALCO.NS"
+  - "VEDL.NS"
+
+# Small-cap stocks for growth potential
+small_cap_stocks:
+  - "DIXON.NS"
+  - "IRCTC.NS"
+  - "ZOMATO.NS"
+  - "PAYTM.NS"
+  - "NYKAA.NS"
+  - "POLICYBZR.NS"
+
+# Data fetching configuration
+data_config:
+  default_period: "1y"
+  default_interval: "1d"
+  include_pre_post: false
+  auto_adjust: true
+  back_adjust: false
+  progress: true
+  
+  # Batch processing settings
+  batch_size: 10
+  batch_delay: 1  # seconds between batches
+  
+  # Data validation
+  min_volume_filter: 1000
+  price_range_validation: true
+  outlier_detection: true

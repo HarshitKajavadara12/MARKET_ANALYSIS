@@ -1,0 +1,161 @@
+# Market Research System v1.0 - Performance Configuration
+# Created: January 2022
+# Updated: December 2022
+
+# Memory Management Settings
+memory:
+  max_memory_usage_mb: 2048  # Maximum memory usage in MB
+  memory_warning_threshold: 0.8  # Warning at 80% of max memory
+  garbage_collection_frequency: 300  # Seconds between GC cycles
+  pandas_memory_optimization: true
+  chunk_size_for_large_datasets: 10000  # Process data in chunks
+  
+# Data Processing Performance
+data_processing:
+  parallel_processing: true
+  max_workers: 4  # Number of parallel workers
+  batch_size: 1000  # Records per batch
+  cache_processed_data: true
+  cache_expiry_hours: 24
+  use_vectorized_operations: true
+  optimize_dataframe_dtypes: true
+  
+# API Performance Settings  
+api:
+  connection_timeout: 30  # Seconds
+  read_timeout: 60  # Seconds
+  max_retries: 3
+  retry_delay: 2  # Seconds between retries
+  rate_limit_requests_per_minute: 100
+  concurrent_api_calls: 5
+  connection_pool_size: 10
+  
+# Database Performance (if using database)
+database:
+  connection_pool_size: 5
+  connection_timeout: 30
+  query_timeout: 300
+  bulk_insert_batch_size: 1000
+  enable_query_caching: true
+  cache_size_mb: 100
+  
+# File I/O Performance
+file_io:
+  use_compression: true
+  compression_level: 6  # 1-9, higher = better compression, slower
+  buffer_size_kb: 64
+  concurrent_file_operations: 3
+  temporary_directory: "/tmp/market_research"
+  
+# Analysis Performance
+analysis:
+  technical_indicators:
+    use_numba_acceleration: false  # Set to true if numba installed
+    vectorize_calculations: true
+    cache_indicator_results: true
+    cache_duration_hours: 6
+  
+  statistical_analysis:
+    use_scipy_optimizations: true
+    correlation_calculation_method: "pearson"  # pearson, spearman, kendall
+    enable_parallel_correlations: true
+    
+  machine_learning:
+    use_sklearn_parallel: true
+    n_jobs: -1  # Use all available cores
+    enable_early_stopping: true
+    
+# Reporting Performance
+reporting:
+  pdf_generation:
+    optimize_images: true
+    image_dpi: 150  # DPI for charts and images
+    compress_pdf: true
+    max_report_size_mb: 50
+    
+  chart_generation:
+    figure_dpi: 100
+    save_format: "png"  # png, jpg, svg
+    enable_interactive_plots: false
+    max_chart_points: 10000  # Limit data points per chart
+    
+# Monitoring and Profiling
+monitoring:
+  enable_performance_monitoring: true
+  profile_memory_usage: true
+  profile_execution_time: true
+  performance_log_interval: 300  # Seconds
+  
+  alerts:
+    high_memory_usage_threshold: 0.9
+    slow_operation_threshold_seconds: 60
+    api_failure_threshold: 5  # Consecutive failures
+    disk_space_warning_threshold: 0.85
+    
+# Optimization Features
+optimization:
+  enable_caching: true
+  cache_directory: "data/cache"
+  precompute_common_indicators: true
+  lazy_loading: true
+  data_compression_enabled: true
+  
+  # Data type optimizations
+  optimize_dtypes:
+    float_precision: "float32"  # float32 or float64
+    integer_type: "int32"      # int32 or int64
+    string_type: "category"    # category for repeated strings
+    
+# System Resource Limits
+resource_limits:
+  max_cpu_usage_percent: 80
+  max_disk_usage_gb: 50
+  max_network_bandwidth_mbps: 100
+  max_concurrent_processes: 10
+  
+# Cleanup and Maintenance
+maintenance:
+  auto_cleanup_enabled: true
+  cleanup_interval_hours: 24
+  keep_raw_data_days: 30
+  keep_processed_data_days: 90
+  keep_reports_days: 180
+  keep_logs_days: 30
+  
+  vacuum_operations:
+    enabled: true
+    schedule: "daily"  # daily, weekly, monthly
+    time: "02:00"  # 2 AM
+    
+# Environment-specific settings
+environment:
+  development:
+    debug_mode: true
+    detailed_logging: true
+    disable_optimizations: false
+    
+  production:
+    debug_mode: false
+    detailed_logging: false
+    enable_all_optimizations: true
+    
+  testing:
+    use_sample_data: true
+    fast_mode: true
+    skip_heavy_computations: true
+    
+# Health Check Settings
+health_check:
+  enabled: true
+  check_interval_minutes: 15
+  endpoints_to_check:
+    - yahoo_finance
+    - fred_api
+  response_time_threshold_ms: 5000
+  
+# Backup Performance
+backup:
+  compression_enabled: true
+  parallel_backup: true
+  backup_verification: true
+  incremental_backup: true

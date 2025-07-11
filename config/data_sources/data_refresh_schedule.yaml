@@ -1,0 +1,345 @@
+# Data Refresh Schedule Configuration - Indian Market Focus
+# Market Research System v1.0 (2022)
+
+market_hours:
+  timezone: "Asia/Kolkata"
+  trading_days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+  pre_market: "09:00"
+  market_open: "09:15"
+  market_close: "15:30"
+  post_market: "16:00"
+
+data_refresh_intervals:
+  # Real-time data during market hours (every 5 minutes)
+  intraday:
+    enabled: true
+    interval_minutes: 5
+    active_during: "market_hours"
+    data_types: ["stocks", "indices", "sectoral"]
+  
+  # End of day data collection
+  end_of_day:
+    enabled: true
+    time: "16:30"
+    data_types: ["stocks", "indices", "sectoral", "derivatives", "mutual_funds"]
+    
+  # Economic data (weekly on Sundays)
+  economic_data:
+    enabled: true
+    day: "Sunday"
+    time: "08:00"
+    data_types: ["rbi_data", "government_stats", "inflation", "gdp"]
+  
+  # Weekly consolidation (Saturday mornings)
+  weekly_consolidation:
+    enabled: true
+    day: "Saturday"
+    time: "09:00"
+    actions: ["data_validation", "performance_calculation", "report_generation"]
+
+# Indian Stock Market Data Sources
+data_sources:
+  primary:
+    name: "NSE/BSE via yfinance"
+    api_endpoint: "https://query1.finance.yahoo.com/v8/finance/chart/"
+    rate_limit: 2000  # requests per hour
+    retry_attempts: 3
+    timeout: 30
+    
+  secondary:
+    name: "Alpha Vantage"
+    api_endpoint: "https://www.alphavantage.co/query"
+    rate_limit: 500   # requests per day (free tier)
+    retry_attempts: 2
+    timeout: 15
+
+# Indian Market Symbols Configuration
+market_symbols:
+  # Major Indices
+  indices:
+    - symbol: "^NSEI"      # NIFTY 50
+      name: "NIFTY 50"
+      priority: 1
+    - symbol: "^BSESN"     # BSE SENSEX
+      name: "BSE SENSEX"
+      priority: 1
+    - symbol: "^NSEBANK"   # NIFTY BANK
+      name: "NIFTY BANK"
+      priority: 2
+    - symbol: "^NSEIT"     # NIFTY IT
+      name: "NIFTY IT"
+      priority: 2
+    - symbol: "^NSEAUTO"   # NIFTY AUTO
+      name: "NIFTY AUTO"
+      priority: 3
+      
+  # Top 50 Indian Stocks (2022)
+  stocks:
+    # Large Cap - Technology
+    - symbol: "TCS.NS"
+      name: "Tata Consultancy Services"
+      sector: "Information Technology"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "INFY.NS"
+      name: "Infosys Limited"
+      sector: "Information Technology"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "HCLTECH.NS"
+      name: "HCL Technologies"
+      sector: "Information Technology"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "WIPRO.NS"
+      name: "Wipro Limited"
+      sector: "Information Technology"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "TECHM.NS"
+      name: "Tech Mahindra"
+      sector: "Information Technology"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - Banking & Financial
+    - symbol: "HDFCBANK.NS"
+      name: "HDFC Bank"
+      sector: "Banking"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "ICICIBANK.NS"
+      name: "ICICI Bank"
+      sector: "Banking"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "SBIN.NS"
+      name: "State Bank of India"
+      sector: "Banking"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "AXISBANK.NS"
+      name: "Axis Bank"
+      sector: "Banking"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "KOTAKBANK.NS"
+      name: "Kotak Mahindra Bank"
+      sector: "Banking"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - FMCG
+    - symbol: "HINDUNILVR.NS"
+      name: "Hindustan Unilever"
+      sector: "FMCG"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "ITC.NS"
+      name: "ITC Limited"
+      sector: "FMCG"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "NESTLEIND.NS"
+      name: "Nestle India"
+      sector: "FMCG"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - Energy & Utilities
+    - symbol: "RELIANCE.NS"
+      name: "Reliance Industries"
+      sector: "Oil & Gas"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "ONGC.NS"
+      name: "Oil & Natural Gas Corp"
+      sector: "Oil & Gas"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "NTPC.NS"
+      name: "NTPC Limited"
+      sector: "Power"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - Pharma
+    - symbol: "SUNPHARMA.NS"
+      name: "Sun Pharmaceutical"
+      sector: "Pharmaceuticals"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "DRREDDY.NS"
+      name: "Dr. Reddy's Labs"
+      sector: "Pharmaceuticals"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "CIPLA.NS"
+      name: "Cipla Limited"
+      sector: "Pharmaceuticals"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - Auto
+    - symbol: "MARUTI.NS"
+      name: "Maruti Suzuki"
+      sector: "Automobile"
+      market_cap: "Large"
+      priority: 1
+    - symbol: "TATAMOTORS.NS"
+      name: "Tata Motors"
+      sector: "Automobile"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "M&M.NS"
+      name: "Mahindra & Mahindra"
+      sector: "Automobile"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - Metals
+    - symbol: "TATASTEEL.NS"
+      name: "Tata Steel"
+      sector: "Metals"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "HINDALCO.NS"
+      name: "Hindalco Industries"
+      sector: "Metals"
+      market_cap: "Large"
+      priority: 2
+      
+    # Large Cap - Telecom
+    - symbol: "BHARTIARTL.NS"
+      name: "Bharti Airtel"
+      sector: "Telecom"
+      market_cap: "Large"
+      priority: 1
+      
+    # Large Cap - Cement
+    - symbol: "ULTRACEMCO.NS"
+      name: "UltraTech Cement"
+      sector: "Cement"
+      market_cap: "Large"
+      priority: 2
+    - symbol: "SHREECEM.NS"
+      name: "Shree Cement"
+      sector: "Cement"
+      market_cap: "Large"
+      priority: 2
+
+# Economic Indicators for India
+economic_indicators:
+  rbi_data:
+    - indicator: "REPO_RATE"
+      frequency: "monthly"
+      source: "RBI"
+      priority: 1
+    - indicator: "CRR"
+      frequency: "monthly"
+      source: "RBI"
+      priority: 2
+    - indicator: "SLR"
+      frequency: "monthly"
+      source: "RBI"
+      priority: 2
+      
+  inflation:
+    - indicator: "CPI"
+      frequency: "monthly"
+      source: "MOSPI"
+      priority: 1
+    - indicator: "WPI"
+      frequency: "monthly"
+      source: "MOSPI"
+      priority: 1
+      
+  growth:
+    - indicator: "GDP_GROWTH"
+      frequency: "quarterly"
+      source: "MOSPI"
+      priority: 1
+    - indicator: "IIP"
+      frequency: "monthly"
+      source: "MOSPI"
+      priority: 2
+
+# Report Generation Schedule
+reporting_schedule:
+  daily_reports:
+    enabled: true
+    time: "17:00"
+    recipients: ["analyst@research.com", "manager@research.com"]
+    reports:
+      - "market_summary"
+      - "top_movers"
+      - "sector_performance"
+      
+  weekly_reports:
+    enabled: true
+    day: "Saturday"
+    time: "10:00"
+    recipients: ["team@research.com", "clients@research.com"]
+    reports:
+      - "weekly_analysis"
+      - "sector_correlation"
+      - "technical_signals"
+      
+  monthly_reports:
+    enabled: true
+    day: "1st"
+    time: "09:00"
+    recipients: ["management@research.com", "clients@research.com"]
+    reports:
+      - "monthly_performance"
+      - "economic_impact_analysis"
+      - "portfolio_recommendations"
+
+# Error Handling & Retry Logic
+error_handling:
+  max_retries: 3
+  retry_delay: 5  # seconds
+  timeout: 30     # seconds
+  
+  # Fallback strategies
+  fallback_data_sources:
+    - "cached_data"
+    - "alternative_api"
+    - "manual_override"
+    
+  notification:
+    email_alerts: true
+    log_level: "ERROR"
+    slack_webhook: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+
+# Performance Optimization
+performance:
+  parallel_processing: true
+  max_workers: 4
+  batch_size: 10
+  
+  caching:
+    enabled: true
+    ttl: 300  # 5 minutes for intraday data
+    size_limit: 1000  # number of cached items
+    
+  database:
+    connection_pool_size: 5
+    query_timeout: 30
+    bulk_insert_size: 1000
+
+# Data Validation Rules
+validation:
+  price_data:
+    min_price: 0.01
+    max_daily_change: 0.20  # 20% circuit limit
+    required_fields: ["Open", "High", "Low", "Close", "Volume"]
+    
+  volume_data:
+    min_volume: 0
+    volume_spike_threshold: 5.0  # 5x average volume
+    
+  data_quality:
+    missing_data_threshold: 0.05  # 5% missing data allowed
+    outlier_detection: true
+    data_consistency_check: true

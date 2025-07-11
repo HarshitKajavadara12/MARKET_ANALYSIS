@@ -1,0 +1,319 @@
+# Email Recipients Configuration for Market Research System v1.0
+# Manages distribution lists, email settings, and notification preferences
+
+email_recipients:
+  # Distribution lists
+  distribution_lists:
+    # Daily report recipients
+    daily_reports:
+      - name: "Portfolio Managers"
+        recipients:
+          - email: "pm1@fundhouse.com"
+            name: "Rajesh Sharma"
+            role: "Senior Portfolio Manager"
+            priority: "high"
+            
+          - email: "pm2@fundhouse.com"
+            name: "Priya Patel"
+            role: "Portfolio Manager"
+            priority: "high"
+            
+          - email: "pm3@fundhouse.com"
+            name: "Arjun Singh"
+            role: "Junior Portfolio Manager"
+            priority: "medium"
+            
+      - name: "Research Team"
+        recipients:
+          - email: "research.head@fundhouse.com"
+            name: "Dr. Suresh Kumar"
+            role: "Head of Research"
+            priority: "high"
+            
+          - email: "equity.analyst1@fundhouse.com"
+            name: "Neha Gupta"
+            role: "Senior Equity Analyst"
+            priority: "high"
+            
+          - email: "equity.analyst2@fundhouse.com"
+            name: "Vikram Mehta"
+            role: "Equity Analyst"
+            priority: "medium"
+            
+      - name: "Risk Management"
+        recipients:
+          - email: "risk.manager@fundhouse.com"
+            name: "Deepak Joshi"
+            role: "Risk Manager"
+            priority: "high"
+            
+          - email: "risk.analyst@fundhouse.com"
+            name: "Sanya Agarwal"
+            role: "Risk Analyst"
+            priority: "medium"
+    
+    # Weekly report recipients  
+    weekly_reports:
+      - name: "Senior Management"
+        recipients:
+          - email: "cio@fundhouse.com"
+            name: "Anil Kapoor"
+            role: "Chief Investment Officer"
+            priority: "critical"
+            
+          - email: "ceo@fundhouse.com"
+            name: "Ravi Agarwal"
+            role: "Chief Executive Officer"
+            priority: "critical"
+            
+          - email: "cfo@fundhouse.com"
+            name: "Meera Jain"
+            role: "Chief Financial Officer"
+            priority: "high"
+            
+      - name: "Investment Committee"
+        recipients:
+          - email: "ic.member1@fundhouse.com"
+            name: "Sanjay Gupta"
+            role: "Investment Committee Member"
+            priority: "high"
+            
+          - email: "ic.member2@fundhouse.com"
+            name: "Kavita Sharma"
+            role: "Investment Committee Member"
+            priority: "high"
+            
+          - email: "ic.member3@fundhouse.com"
+            name: "Rohit Kumar"
+            role: "Investment Committee Member"
+            priority: "high"
+    
+    # Monthly report recipients
+    monthly_reports:
+      - name: "Board Members"
+        recipients:
+          - email: "chairman@fundhouse.com"
+            name: "Mr. Harish Chandra"
+            role: "Chairman"
+            priority: "critical"
+            
+          - email: "board.member1@fundhouse.com"
+            name: "Mrs. Sunita Reddy"
+            role: "Independent Director"
+            priority: "high"
+            
+          - email: "board.member2@fundhouse.com"
+            name: "Mr. Ashok Jindal"
+            role: "Independent Director"
+            priority: "high"
+            
+      - name: "Compliance Team"
+        recipients:
+          - email: "compliance.officer@fundhouse.com"
+            name: "Mohan Rao"
+            role: "Chief Compliance Officer"
+            priority: "high"
+            
+          - email: "compliance.analyst@fundhouse.com"
+            name: "Pooja Verma"
+            role: "Compliance Analyst"
+            priority: "medium"
+    
+    # Alert recipients
+    alerts:
+      - name: "Critical Alerts"
+        recipients:
+          - email: "pm1@fundhouse.com"
+            name: "Rajesh Sharma"
+            role: "Senior Portfolio Manager"
+            priority: "critical"
+            
+          - email: "risk.manager@fundhouse.com"
+            name: "Deepak Joshi"
+            role: "Risk Manager"
+            priority: "critical"
+            
+          - email: "research.head@fundhouse.com"
+            name: "Dr. Suresh Kumar"
+            role: "Head of Research"
+            priority: "critical"
+            
+      - name: "Market Alerts"
+        recipients:
+          - email: "trading.head@fundhouse.com"
+            name: "Amit Pandey"
+            role: "Head of Trading"
+            priority: "high"
+            
+          - email: "dealer1@fundhouse.com"
+            name: "Ravi Khurana"
+            role: "Senior Dealer"
+            priority: "high"
+            
+          - email: "dealer2@fundhouse.com"
+            name: "Sneha Patel"
+            role: "Dealer"
+            priority: "medium"
+            
+          - email: "operations@fundhouse.com"
+            name: "Kiran Desai"
+            role: "Operations Manager"
+            priority: "medium"
+
+  # External clients and partners (Version 1 - Basic clients)
+  external_clients:
+    small_fund_clients:
+      - name: "Mumbai Local Funds"
+        recipients:
+          - email: "director@mumbailocal.fund"
+            name: "Sunil Kothari"
+            role: "Fund Director"
+            priority: "high"
+            fund_size: "50 crores"
+            
+          - email: "pm@mumbailocal.fund"
+            name: "Rakesh Jain"
+            role: "Portfolio Manager"
+            priority: "medium"
+            fund_size: "50 crores"
+            
+      - name: "Pune Investment Group"
+        recipients:
+          - email: "cio@puneinvest.in"
+            name: "Madhuri Kulkarni"
+            role: "Chief Investment Officer"
+            priority: "high"
+            fund_size: "25 crores"
+            
+          - email: "analyst@puneinvest.in"
+            name: "Ajay Patil"
+            role: "Investment Analyst"
+            priority: "medium"
+            fund_size: "25 crores"
+            
+    individual_investors:
+      - name: "HNI Clients"
+        recipients:
+          - email: "businessowner1@gmail.com"
+            name: "Arun Agarwal"
+            role: "Business Owner"
+            priority: "high"
+            investment_size: "2 crores"
+            
+          - email: "doctor.investments@gmail.com"
+            name: "Dr. Prashant Modi"
+            role: "Medical Professional"
+            priority: "medium"
+            investment_size: "1.5 crores"
+            
+          - email: "textile.magnate@outlook.com"
+            name: "Bharat Shah"
+            role: "Textile Business Owner"
+            priority: "high"
+            investment_size: "3 crores"
+
+# Email settings and preferences
+email_settings:
+  # SMTP Configuration (for Version 1 - basic setup)
+  smtp:
+    server: "smtp.gmail.com"
+    port: 587
+    use_tls: true
+    
+  # Report timing preferences
+  schedule:
+    daily_reports:
+      time: "07:30"
+      timezone: "Asia/Kolkata"
+      weekdays_only: true
+      
+    weekly_reports:
+      day: "Monday"
+      time: "08:00"
+      timezone: "Asia/Kolkata"
+      
+    monthly_reports:
+      day: 1  # First day of month
+      time: "09:00"
+      timezone: "Asia/Kolkata"
+      
+    alerts:
+      immediate: true
+      market_hours_only: false  # Alerts even after market close
+      
+  # Indian market specific settings
+  market_context:
+    trading_hours:
+      pre_market: "09:00-09:15"
+      regular: "09:15-15:30"
+      post_market: "15:40-16:00"
+    
+    holidays:
+      # Major Indian market holidays (2022)
+      - "2022-01-26"  # Republic Day
+      - "2022-03-18"  # Holi
+      - "2022-04-14"  # Ram Navami
+      - "2022-04-15"  # Good Friday
+      - "2022-05-03"  # Eid ul-Fitr
+      - "2022-08-15"  # Independence Day
+      - "2022-08-31"  # Ganesh Chaturthi
+      - "2022-10-05"  # Dussehra
+      - "2022-10-24"  # Diwali
+      - "2022-11-08"  # Guru Nanak Jayanti
+
+# Notification preferences by recipient type
+notification_preferences:
+  internal_team:
+    format: "detailed"
+    attachments: true
+    charts: true
+    raw_data: true
+    
+  external_clients:
+    format: "summary"
+    attachments: false
+    charts: true
+    raw_data: false
+    branding: true
+    
+  alerts:
+    format: "brief"
+    attachments: false
+    charts: false
+    immediate_notification: true
+
+# Template assignments for different report types
+template_assignments:
+  daily_summary:
+    internal: "templates/daily_internal.html"
+    external: "templates/daily_client.html"
+    
+  weekly_overview:
+    internal: "templates/weekly_internal.html"
+    external: "templates/weekly_client.html"
+    
+  monthly_report:
+    internal: "templates/monthly_internal.html"
+    external: "templates/monthly_client.html"
+    
+  alerts:
+    critical: "templates/alert_critical.html"
+    warning: "templates/alert_warning.html"
+    info: "templates/alert_info.html"
+
+# Version 1 specific settings (2022)
+version_info:
+  system_version: "1.0"
+  created_date: "2022-03-15"
+  last_updated: "2022-12-30"
+  features:
+    - "Basic email distribution"
+    - "Indian market timing awareness"
+    - "Simple client categorization"
+    - "Manual SMTP configuration"
+  
+  limitations:
+    - "No advanced segmentation"
+    - "Basic template system"
+    - "Manual client onboarding"
+    - "Limited personalization"

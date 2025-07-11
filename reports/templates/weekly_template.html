@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Market Research Report - {{report_date}}</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/charts.css">
+    <link rel="stylesheet" href="styles/tables.css">
+</head>
+<body>
+    <div class="report-container">
+        <!-- Header Section -->
+        <header class="report-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>Indian Market Research System</h1>
+                    <p class="tagline">Professional Market Analysis & Insights</p>
+                </div>
+                <div class="report-info">
+                    <h2>Weekly Market Report</h2>
+                    <p class="report-date">Week Ending: {{report_date}}</p>
+                    <p class="generated-time">Generated: {{generated_timestamp}}</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="executive-summary">
+            <h2>Executive Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-card market-overview">
+                    <h3>Market Overview</h3>
+                    <p>{{market_summary}}</p>
+                    <div class="key-metrics">
+                        <div class="metric">
+                            <span class="metric-label">NIFTY 50:</span>
+                            <span class="metric-value {{nifty_direction}}">{{nifty_change}}</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">SENSEX:</span>
+                            <span class="metric-value {{sensex_direction}}">{{sensex_change}}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary-card sector-performance">
+                    <h3>Top Performing Sectors</h3>
+                    <ul>
+                        {{#top_sectors}}
+                        <li class="sector-item">
+                            <span class="sector-name">{{name}}</span>
+                            <span class="sector-change positive">{{change}}%</span>
+                        </li>
+                        {{/top_sectors}}
+                    </ul>
+                </div>
+
+                <div class="summary-card volatility-index">
+                    <h3>Market Volatility</h3>
+                    <div class="volatility-gauge">
+                        <div class="gauge-value">{{vix_value}}</div>
+                        <div class="gauge-label">India VIX</div>
+                        <div class="volatility-status {{volatility_level}}">{{volatility_text}}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Performance Charts -->
+        <section class="charts-section">
+            <h2>Market Performance Analysis</h2>
+            
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>NIFTY 50 Weekly Performance</h3>
+                </div>
+                <div class="chart-placeholder">
+                    <img src="{{nifty_chart_path}}" alt="NIFTY 50 Weekly Chart" class="market-chart">
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Sector Performance Heatmap</h3>
+                </div>
+                <div class="chart-placeholder">
+                    <img src="{{sector_heatmap_path}}" alt="Sector Performance Heatmap" class="market-chart">
+                </div>
+            </div>
+        </section>
+
+        <!-- Stock Analysis Table -->
+        <section class="stock-analysis">
+            <h2>Top Stock Performers</h2>
+            
+            <div class="table-container">
+                <h3>Weekly Gainers</h3>
+                <table class="stock-table">
+                    <thead>
+                        <tr>
+                            <th>Stock</th>
+                            <th>Sector</th>
+                            <th>Price (₹)</th>
+                            <th>Weekly Change</th>
+                            <th>Volume</th>
+                            <th>Market Cap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#weekly_gainers}}
+                        <tr>
+                            <td class="stock-name">{{symbol}}</td>
+                            <td class="sector-name">{{sector}}</td>
+                            <td class="price">₹{{price}}</td>
+                            <td class="change positive">+{{change}}%</td>
+                            <td class="volume">{{volume}}</td>
+                            <td class="market-cap">₹{{market_cap}}</td>
+                        </tr>
+                        {{/weekly_gainers}}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h3>Weekly Losers</h3>
+                <table class="stock-table">
+                    <thead>
+                        <tr>
+                            <th>Stock</th>
+                            <th>Sector</th>
+                            <th>Price (₹)</th>
+                            <th>Weekly Change</th>
+                            <th>Volume</th>
+                            <th>Market Cap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#weekly_losers}}
+                        <tr>
+                            <td class="stock-name">{{symbol}}</td>
+                            <td class="sector-name">{{sector}}</td>
+                            <td class="price">₹{{price}}</td>
+                            <td class="change negative">{{change}}%</td>
+                            <td class="volume">{{volume}}</td>
+                            <td class="market-cap">₹{{market_cap}}</td>
+                        </tr>
+                        {{/weekly_losers}}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Technical Analysis -->
+        <section class="technical-analysis">
+            <h2>Technical Analysis Summary</h2>
+            
+            <div class="technical-grid">
+                <div class="technical-card">
+                    <h3>Support & Resistance Levels</h3>
+                    <div class="levels-container">
+                        <div class="resistance-levels">
+                            <h4>Resistance</h4>
+                            {{#resistance_levels}}
+                            <div class="level">{{value}}</div>
+                            {{/resistance_levels}}
+                        </div>
+                        <div class="support-levels">
+                            <h4>Support</h4>
+                            {{#support_levels}}
+                            <div class="level">{{value}}</div>
+                            {{/support_levels}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="technical-card">
+                    <h3>Technical Indicators</h3>
+                    <div class="indicators-list">
+                        <div class="indicator">
+                            <span class="indicator-name">RSI (14):</span>
+                            <span class="indicator-value {{rsi_signal}}">{{rsi_value}}</span>
+                        </div>
+                        <div class="indicator">
+                            <span class="indicator-name">MACD:</span>
+                            <span class="indicator-value {{macd_signal}}">{{macd_status}}</span>
+                        </div>
+                        <div class="indicator">
+                            <span class="indicator-name">Moving Average:</span>
+                            <span class="indicator-value {{ma_signal}}">{{ma_status}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Economic Indicators -->
+        <section class="economic-indicators">
+            <h2>Economic Environment</h2>
+            
+            <div class="economic-grid">
+                <div class="economic-card">
+                    <h3>Key Economic Data</h3>
+                    <div class="economic-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Repo Rate:</span>
+                            <span class="metric-value">{{repo_rate}}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Inflation (CPI):</span>
+                            <span class="metric-value">{{inflation_rate}}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">GDP Growth:</span>
+                            <span class="metric-value">{{gdp_growth}}%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">USD/INR:</span>
+                            <span class="metric-value">₹{{usd_inr}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="economic-card">
+                    <h3>Market Sentiment</h3>
+                    <div class="sentiment-indicators">
+                        <div class="sentiment-item">
+                            <span class="sentiment-label">FII Flow:</span>
+                            <span class="sentiment-value {{fii_flow_direction}}">₹{{fii_flow}} Cr</span>
+                        </div>
+                        <div class="sentiment-item">
+                            <span class="sentiment-label">DII Flow:</span>
+                            <span class="sentiment-value {{dii_flow_direction}}">₹{{dii_flow}} Cr</span>
+                        </div>
+                        <div class="sentiment-item">
+                            <span class="sentiment-label">Put/Call Ratio:</span>
+                            <span class="sentiment-value">{{put_call_ratio}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly Outlook -->
+        <section class="outlook">
+            <h2>Next Week Outlook</h2>
+            <div class="outlook-content">
+                <div class="outlook-card">
+                    <h3>Key Events to Watch</h3>
+                    <ul class="events-list">
+                        {{#upcoming_events}}
+                        <li class="event-item">
+                            <span class="event-date">{{date}}</span>
+                            <span class="event-description">{{description}}</span>
+                        </li>
+                        {{/upcoming_events}}
+                    </ul>
+                </div>
+
+                <div class="outlook-card">
+                    <h3>Market Expectations</h3>
+                    <div class="expectations">
+                        <p>{{market_expectations}}</p>
+                        <div class="risk-assessment">
+                            <span class="risk-label">Risk Level:</span>
+                            <span class="risk-value {{risk_level}}">{{risk_text}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="report-footer">
+            <div class="footer-content">
+                <div class="disclaimer">
+                    <h4>Disclaimer</h4>
+                    <p>This report is for informational purposes only and should not be considered as investment advice. 
+                       Past performance does not guarantee future results. Please consult with a qualified financial advisor 
+                       before making investment decisions.</p>
+                </div>
+                <div class="contact-info">
+                    <h4>Contact Information</h4>
+                    <p>Indian Market Research System</p>
+                    <p>Email: research@indianmarkets.com</p>
+                    <p>Phone: +91-XXX-XXX-XXXX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2022 Indian Market Research System. All rights reserved.</p>
+                <p>Report Generated: {{generated_timestamp}}</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Market Research Report - {{report_month}} {{report_year}}</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/charts.css">
+    <link rel="stylesheet" href="styles/tables.css">
+</head>
+<body>
+    <div class="report-container">
+        <!-- Header Section -->
+        <header class="report-header monthly-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1>Indian Market Research System</h1>
+                    <p class="tagline">Monthly Comprehensive Market Analysis</p>
+                </div>
+                <div class="report-info">
+                    <h2>Monthly Market Report</h2>
+                    <p class="report-date">{{report_month}} {{report_year}}</p>
+                    <p class="generated-time">Generated: {{generated_timestamp}}</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="executive-summary monthly-summary">
+            <h2>Monthly Executive Summary</h2>
+            <div class="summary-overview">
+                <p class="summary-text">{{executive_summary}}</p>
+            </div>
+            
+            <div class="summary-grid">
+                <div class="summary-card market-performance">
+                    <h3>Market Performance</h3>
+                    <div class="performance-metrics">
+                        <div class="metric-row">
+                            <span class="metric-label">NIFTY 50:</span>
+                            <span class="metric-value {{nifty_direction}}">{{nifty_monthly_change}}%</span>
+                            <span class="metric-points">({{nifty_points}} pts)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">SENSEX:</span>
+                            <span class="metric-value {{sensex_direction}}">{{sensex_monthly_change}}%</span>
+                            <span class="metric-points">({{sensex_points}} pts)</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">NIFTY Bank:</span>
+                            <span class="metric-value {{bank_nifty_direction}}">{{bank_nifty_change}}%</span>
+                            <span class="metric-points">({{bank_nifty_points}} pts)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card trading-activity">
+                    <h3>Trading Activity</h3>
+                    <div class="activity-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Avg Daily Volume:</span>
+                            <span class="metric-value">₹{{avg_daily_volume}} Cr</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Total FII Flow:</span>
+                            <span class="metric-value {{fii_flow_direction}}">₹{{total_fii_flow}} Cr</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Total DII Flow:</span>
+                            <span class="metric-value {{dii_flow_direction}}">₹{{total_dii_flow}} Cr</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card volatility-summary">
+                    <h3>Volatility Analysis</h3>
+                    <div class="volatility-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Avg India VIX:</span>
+                            <span class="metric-value">{{avg_vix}}</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Max VIX:</span>
+                            <span class="metric-value">{{max_vix}}</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Volatility Trend:</span>
+                            <span class="metric-value {{volatility_trend}}">{{volatility_direction}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monthly Performance Charts -->
+        <section class="charts-section monthly-charts">
+            <h2>Monthly Performance Analysis</h2>
+            
+            <div class="chart-row">
+                <div class="chart-container large-chart">
+                    <div class="chart-header">
+                        <h3>NIFTY 50 Monthly Trend</h3>
+                        <p class="chart-subtitle">Daily closing prices with key support/resistance levels</p>
+                    </div>
+                    <div class="chart-placeholder">
+                        <img src="{{nifty_monthly_chart_path}}" alt="NIFTY 50 Monthly Chart" class="market-chart">
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Sector Performance</h3>
+                    </div>
+                    <div class="chart-placeholder">
+                        <img src="{{sector_performance_chart_path}}" alt="Sector Performance Chart" class="market-chart">
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>Market Breadth</h3>
+                    </div>
+                    <div class="chart-placeholder">
+                        <img src="{{market_breadth_chart_path}}" alt="Market Breadth Chart" class="market-chart">
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-row">
+                <div class="chart-container large-chart">
+                    <div class="chart-header">
+                        <h3>FII vs DII Flow Analysis</h3>
+                    </div>
+                    <div class="chart-placeholder">
+                        <img src="{{fii_dii_flow_chart_path}}" alt="FII vs DII Flow Chart" class="market-chart">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sector Analysis -->
+        <section class="sector-analysis">
+            <h2>Detailed Sector Analysis</h2>
+            
+            <div class="sector-grid">
+                {{#sector_analysis}}
+                <div class="sector-card">
+                    <div class="sector-header">
+                        <h3>{{sector_name}}</h3>
+                        <span class="sector-performance {{performance_class}}">{{monthly_return}}%</span>
+                    </div>
+                    <div class="sector-content">
+                        <div class="sector-metrics">
+                            <div class="metric">
+                                <span class="label">Market Cap:</span>
+                                <span class="value">₹{{market_cap}} Cr</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">P/E Ratio:</span>
+                                <span class="value">{{pe_ratio}}</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Top Stock:</span>
+                                <span class="value">{{top_stock}}</span>
+                            </div>
+                        </div>
+                        <div class="sector-summary">
+                            <p>{{sector_summary}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{/sector_analysis}}
+            </div>
+        </section>
+
+        <!-- Top Performers Analysis -->
+        <section class="stock-analysis monthly-stocks">
+            <h2>Monthly Stock Performance</h2>
+            
+            <div class="performance-tables">
+                <div class="table-container">
+                    <h3>Top 15 Monthly Gainers</h3>
+                    <table class="stock-table monthly-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Stock</th>
+                                <th>Sector</th>
+                                <th>Opening Price</th>
+                                <th>Closing Price</th>
+                                <th>Monthly Return</th>
+                                <th>Market Cap</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#monthly_gainers}}
+                            <tr>
+                                <td class="rank">{{rank}}</td>
+                                <td class="stock-name">{{symbol}}</td>
+                                <td class="sector-name">{{sector}}</td>
+                                <td class="price">₹{{opening_price}}</td>
+                                <td class="price">₹{{closing_price}}</td>
+                                <td class="change positive">+{{monthly_return}}%</td>
+                                <td class="market-cap">₹{{market_cap}}</td>
+                            </tr>
+                            {{/monthly_gainers}}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-container">
+                    <h3>Top 15 Monthly Losers</h3>
+                    <table class="stock-table monthly-table">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Stock</th>
+                                <th>Sector</th>
+                                <th>Opening Price</th>
+                                <th>Closing Price</th>
+                                <th>Monthly Return</th>
+                                <th>Market Cap</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#monthly_losers}}
+                            <tr>
+                                <td class="rank">{{rank}}</td>
+                                <td class="stock-name">{{symbol}}</td>
+                                <td class="sector-name">{{sector}}</td>
+                                <td class="price">₹{{opening_price}}</td>
+                                <td class="price">₹{{closing_price}}</td>
+                                <td class="change negative">{{monthly_return}}%</td>
+                                <td class="market-cap">₹{{market_cap}}</td>
+                            </tr>
+                            {{/monthly_losers}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Analysis Summary -->
+        <section class="technical-analysis monthly-technical">
+            <h2>Monthly Technical Analysis</h2>
+            
+            <div class="technical-overview">
+                <div class="technical-summary">
+                    <h3>Overall Technical Outlook</h3>
+                    <p>{{technical_outlook}}</p>
+                </div>
+
+                <div class="key-levels">
+                    <div class="levels-card">
+                        <h3>NIFTY 50 Key Levels</h3>
+                        <div class="levels-grid">
+                            <div class="resistance-section">
+                                <h4>Resistance Levels</h4>
+                                {{#nifty_resistance}}
+                                <div class="level strong">{{level}} ({{type}})</div>
+                                {{/nifty_resistance}}
+                            </div>
+                            <div class="support-section">
+                                <h4>Support Levels</h4>
+                                {{#nifty_support}}
+                                <div class="level strong">{{level}} ({{type}})</div>
+                                {{/nifty_support}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="levels-card">
+                        <h3>Bank NIFTY Key Levels</h3>
+                        <div class="levels-grid">
+                            <div class="resistance-section">
+                                <h4>Resistance Levels</h4>
+                                {{#bank_nifty_resistance}}
+                                <div class="level strong">{{level}} ({{type}})</div>
+                                {{/bank_nifty_resistance}}
+                            </div>
+                            <div class="support-section">
+                                <h4>Support Levels</h4>
+                                {{#bank_nifty_support}}
+                                <div class="level strong">{{level}} ({{type}})</div>
+                                {{/bank_nifty_support}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="indicator-analysis">
+                <h3>Monthly Technical Indicators Summary</h3>
+                <div class="indicators-grid">
+                    <div class="indicator-card">
+                        <h4>Trend Indicators</h4>
+                        <div class="indicator-list">
+                            <div class="indicator-item">
+                                <span class="indicator-name">SMA 20:</span>
+                                <span class="indicator-signal {{sma20_signal}}">{{sma20_status}}</span>
+                            </div>
+                            <div class="indicator-item">
+                                <span class="indicator-name">SMA 50:</span>
+                                <span class="indicator-signal {{sma50_signal}}">{{sma50_status}}</span>
+                            </div>
+                            <div class="indicator-item">
+                                <span class="indicator-name">EMA 21:</span>
+                                <span class="indicator-signal {{ema21_signal}}">{{ema21_status}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="indicator-card">
+                        <h4>Momentum Indicators</h4>
+                        <div class="indicator-list">
+                            <div class="indicator-item">
+                                <span class="indicator-name">RSI (14):</span>
+                                <span class="indicator-signal {{rsi_signal}}">{{rsi_value}} - {{rsi_status}}</span>
+                            </div>
+                            <div class="indicator-item">
+                                <span class="indicator-name">MACD:</span>
+                                <span class="indicator-signal {{macd_signal}}">{{macd_status}}</span>
+                            </div>
+                            <div class="indicator-item">
+                                <span class="indicator-name">Stochastic:</span>
+                                <span class="indicator-signal {{stoch_signal}}">{{stoch_status}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Economic Analysis -->
+        <section class="economic-analysis monthly-economic">
+            <h2>Economic Environment Analysis</h2>
+            
+            <div class="economic-overview">
+                <div class="economic-summary">
+                    <h3>Monthly Economic Highlights</h3>
+                    <p>{{economic_summary}}</p>
+                </div>
+
+                <div class="economic-metrics-grid">
+                    <div class="economic-card">
+                        <h3>Monetary Policy</h3>
+                        <div class="policy-metrics">
+                            <div class="metric">
+                                <span class="label">Repo Rate:</span>
+                                <span class="value">{{repo_rate}}%</span>
+                                <span class="change {{repo_change_direction}}">({{repo_change}})</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Reverse Repo:</span>
+                                <span class="value">{{reverse_repo_rate}}%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">CRR:</span>
+                                <span class="value">{{crr_rate}}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="economic-card">
+                        <h3>Inflation & Growth</h3>
+                        <div class="growth-metrics">
+                            <div class="metric">
+                                <span class="label">CPI Inflation:</span>
+                                <span class="value">{{cpi_inflation}}%</span>
+                                <span class="change {{cpi_direction}}">({{cpi_change}})</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">WPI Inflation:</span>
+                                <span class="value">{{wpi_inflation}}%</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">GDP Growth:</span>
+                                <span class="value">{{gdp_growth}}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="economic-card">
+                        <h3>Currency & Commodities</h3>
+                        <div class="currency-metrics">
+                            <div class="metric">
+                                <span class="label">USD/INR:</span>
+                                <span class="value">₹{{usd_inr}}</span>
+                                <span class="change {{inr_direction}}">({{inr_change}}%)</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Crude Oil:</span>
+                                <span class="value">${{crude_price}}</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Gold:</span>
+                                <span class="value">₹{{gold_price}}/10g</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Events & Corporate Actions -->
+        <section class="market-events">
+            <h2>Key Market Events & Corporate Actions</h2>
+            
+            <div class="events-grid">
+                <div class="events-card">
+                    <h3>Major Announcements</h3>
+                    <div class="events-list">
+                        {{#major_events}}
+                        <div class="event-item">
+                            <div class="event-date">{{date}}</div>
+                            <div class="event-description">{{description}}</div>
+                            <div class="event-impact {{impact_level}}">{{impact}}</div>
+                        </div>
+                        {{/major_events}}
+                    </div>
+                </div>
+
+                <div class="events-card">
+                    <h3>Earnings Highlights</h3>
+                    <div class="earnings-summary">
+                        <div class="earnings-stats">
+                            <div class="earnings-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Companies Reported:</span>
+                                <span class="stat-value">{{companies_reported}}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Beat Estimates:</span>
+                                <span class="stat-value positive">{{earnings_beats}}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Missed Estimates:</span>
+                                <span class="stat-value negative">{{earnings_misses}}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="notable-earnings">
+                            <h4>Notable Earnings This Month</h4>
+                            <div class="earnings-list">
+                                {{#notable_earnings}}
+                                <div class="earnings-item">
+                                    <div class="company-info">
+                                        <span class="company-name">{{company}}</span>
+                                        <span class="sector">{{sector}}</span>
+                                    </div>
+                                    <div class="earnings-result {{result_class}}">
+                                        <span class="eps-actual">Actual: ₹{{eps_actual}}</span>
+                                        <span class="eps-expected">Expected: ₹{{eps_expected}}</span>
+                                        <span class="surprise">{{surprise_percent}}%</span>
+                                    </div>
+                                </div>
+                                {{/notable_earnings}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="events-card">
+                    <h3>IPO & Listing Activity</h3>
+                    <div class="ipo-section">
+                        <div class="ipo-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">New Listings:</span>
+                                <span class="stat-value">{{new_listings}}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Raised:</span>
+                                <span class="stat-value">₹{{total_ipo_amount}} Cr</span>
+                            </div>
+                        </div>
+                        
+                        {{#ipo_listings}}
+                        <div class="ipo-item">
+                            <div class="ipo-details">
+                                <span class="company-name">{{company_name}}</span>
+                                <span class="ipo-size">₹{{ipo_size}} Cr</span>
+                            </div>
+                            <div class="listing-performance {{performance_class}}">
+                                <span class="listing-price">Listed: ₹{{listing_price}}</span>
+                                <span class="premium">{{listing_premium}}%</span>
+                            </div>
+                        </div>
+                        {{/ipo_listings}}
+                    </div>
+                </div>
+
+                <div class="events-card">
+                    <h3>Corporate Actions</h3>
+                    <div class="corporate-actions">
+                        {{#corporate_actions}}
+                        <div class="action-item">
+                            <div class="action-date">{{action_date}}</div>
+                            <div class="action-details">
+                                <span class="company">{{company}}</span>
+                                <span class="action-type {{action_class}}">{{action_type}}</span>
+                                <span class="action-desc">{{description}}</span>
+                            </div>
+                        </div>
+                        {{/corporate_actions}}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FII/DII Analysis -->
+        <section class="fii-dii-analysis">
+            <h2>Foreign & Domestic Institutional Activity</h2>
+            
+            <div class="institutional-overview">
+                <div class="flow-summary">
+                    <div class="flow-card fii-flow">
+                        <h3>FII Activity</h3>
+                        <div class="flow-metrics">
+                            <div class="total-flow {{fii_flow_direction}}">
+                                <span class="flow-label">Net Flow:</span>
+                                <span class="flow-value">₹{{total_fii_flow}} Cr</span>
+                            </div>
+                            <div class="flow-breakdown">
+                                <div class="flow-item">
+                                    <span class="category">Equity:</span>
+                                    <span class="amount {{fii_equity_direction}}">₹{{fii_equity_flow}} Cr</span>
+                                </div>
+                                <div class="flow-item">
+                                    <span class="category">Debt:</span>
+                                    <span class="amount {{fii_debt_direction}}">₹{{fii_debt_flow}} Cr</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flow-card dii-flow">
+                        <h3>DII Activity</h3>
+                        <div class="flow-metrics">
+                            <div class="total-flow {{dii_flow_direction}}">
+                                <span class="flow-label">Net Flow:</span>
+                                <span class="flow-value">₹{{total_dii_flow}} Cr</span>
+                            </div>
+                            <div class="flow-breakdown">
+                                <div class="flow-item">
+                                    <span class="category">Mutual Funds:</span>
+                                    <span class="amount {{mf_flow_direction}}">₹{{mf_flow}} Cr</span>
+                                </div>
+                                <div class="flow-item">
+                                    <span class="category">Insurance:</span>
+                                    <span class="amount {{insurance_flow_direction}}">₹{{insurance_flow}} Cr</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-analysis">
+                    <h3>Monthly Flow Impact Analysis</h3>
+                    <p class="flow-commentary">{{flow_analysis_summary}}</p>
+                    
+                    <div class="flow-insights">
+                        <div class="insight-item">
+                            <h4>Market Impact:</h4>
+                            <p>{{market_impact_analysis}}</p>
+                        </div>
+                        <div class="insight-item">
+                            <h4>Sector Preferences:</h4>
+                            <p>{{sector_preference_analysis}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Assessment -->
+        <section class="risk-assessment">
+            <h2>Monthly Risk Assessment</h2>
+            
+            <div class="risk-overview">
+                <div class="risk-summary">
+                    <h3>Overall Risk Level</h3>
+                    <div class="risk-meter">
+                        <div class="risk-level {{risk_level_class}}">{{risk_level}}</div>
+                        <div class="risk-score">Risk Score: {{risk_score}}/10</div>
+                    </div>
+                    <p class="risk-commentary">{{risk_assessment_summary}}</p>
+                </div>
+
+                <div class="risk-factors">
+                    <div class="risk-card">
+                        <h3>Market Risk Factors</h3>
+                        <div class="risk-list">
+                            {{#market_risks}}
+                            <div class="risk-item {{severity}}">
+                                <span class="risk-factor">{{factor}}</span>
+                                <span class="risk-level">{{level}}</span>
+                            </div>
+                            {{/market_risks}}
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h3>Economic Risk Factors</h3>
+                        <div class="risk-list">
+                            {{#economic_risks}}
+                            <div class="risk-item {{severity}}">
+                                <span class="risk-factor">{{factor}}</span>
+                                <span class="risk-level">{{level}}</span>
+                            </div>
+                            {{/economic_risks}}
+                        </div>
+                    </div>
+
+                    <div class="risk-card">
+                        <h3>Geopolitical Risk Factors</h3>
+                        <div class="risk-list">
+                            {{#geopolitical_risks}}
+                            <div class="risk-item {{severity}}">
+                                <span class="risk-factor">{{factor}}</span>
+                                <span class="risk-level">{{level}}</span>
+                            </div>
+                            {{/geopolitical_risks}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Outlook -->
+        <section class="market-outlook">
+            <h2>Next Month Market Outlook</h2>
+            
+            <div class="outlook-overview">
+                <div class="outlook-summary">
+                    <h3>Market Direction Forecast</h3>
+                    <div class="direction-indicator {{outlook_direction}}">
+                        <span class="direction-arrow">{{direction_symbol}}</span>
+                        <span class="direction-text">{{outlook_direction_text}}</span>
+                    </div>
+                    <p class="outlook-reasoning">{{outlook_summary}}</p>
+                </div>
+
+                <div class="key-factors">
+                    <h3>Key Factors to Watch</h3>
+                    <div class="factors-grid">
+                        <div class="factor-card">
+                            <h4>Economic Events</h4>
+                            <ul class="factor-list">
+                                {{#upcoming_economic_events}}
+                                <li class="event-item">
+                                    <span class="event-date">{{date}}</span>
+                                    <span class="event-name">{{event}}</span>
+                                    <span class="importance {{importance_level}}">{{importance}}</span>
+                                </li>
+                                {{/upcoming_economic_events}}
+                            </ul>
+                        </div>
+
+                        <div class="factor-card">
+                            <h4>Earnings Calendar</h4>
+                            <ul class="factor-list">
+                                {{#upcoming_earnings}}
+                                <li class="earnings-item">
+                                    <span class="earnings-date">{{date}}</span>
+                                    <span class="company-name">{{company}}</span>
+                                    <span class="expected-impact {{impact_level}}">{{impact}}</span>
+                                </li>
+                                {{/upcoming_earnings}}
+                            </ul>
+                        </div>
+
+                        <div class="factor-card">
+                            <h4>Policy Events</h4>
+                            <ul class="factor-list">
+                                {{#policy_events}}
+                                <li class="policy-item">
+                                    <span class="policy-date">{{date}}</span>
+                                    <span class="policy-event">{{event}}</span>
+                                    <span class="market-impact {{impact_level}}">{{impact}}</span>
+                                </li>
+                                {{/policy_events}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="target-levels">
+                    <h3>Target Levels for Next Month</h3>
+                    <div class="targets-grid">
+                        <div class="target-card">
+                            <h4>NIFTY 50 Targets</h4>
+                            <div class="target-levels-list">
+                                <div class="level upside">
+                                    <span class="level-label">Upside Target:</span>
+                                    <span class="level-value">{{nifty_upside_target}}</span>
+                                </div>
+                                <div class="level current">
+                                    <span class="level-label">Current Level:</span>
+                                    <span class="level-value">{{nifty_current_level}}</span>
+                                </div>
+                                <div class="level downside">
+                                    <span class="level-label">Downside Target:</span>
+                                    <span class="level-value">{{nifty_downside_target}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="target-card">
+                            <h4>Bank NIFTY Targets</h4>
+                            <div class="target-levels-list">
+                                <div class="level upside">
+                                    <span class="level-label">Upside Target:</span>
+                                    <span class="level-value">{{bank_nifty_upside_target}}</span>
+                                </div>
+                                <div class="level current">
+                                    <span class="level-label">Current Level:</span>
+                                    <span class="level-value">{{bank_nifty_current_level}}</span>
+                                </div>
+                                <div class="level downside">
+                                    <span class="level-label">Downside Target:</span>
+                                    <span class="level-value">{{bank_nifty_downside_target}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="report-footer">
+            <div class="footer-content">
+                <div class="disclaimer">
+                    <h3>Disclaimer</h3>
+                    <p>This report is for informational purposes only and should not be considered as investment advice. 
+                       Past performance does not guarantee future results. Please consult with a qualified financial advisor 
+                       before making investment decisions. The Indian Market Research System is not responsible for any 
+                       investment losses based on this report.</p>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p>Indian Market Research System</p>
+                    <p>Email: research@indianmarkets.com</p>
+                    <p>Report Generated: {{generated_timestamp}}</p>
+                    <p>Next Report: {{next_report_date}}</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Basic JavaScript for Version 1 (2022) -->
+    <script>
+        // Simple chart loading placeholder for Version 1
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loading states for charts
+            const chartPlaceholders = document.querySelectorAll('.chart-placeholder img');
+            chartPlaceholders.forEach(function(img) {
+                img.addEventListener('error', function() {
+                    this.parentElement.innerHTML = '<div class="chart-error">Chart unavailable</div>';
+                });
+            });
+
+            // Add interactive hover effects to metric values
+            const metricValues = document.querySelectorAll('.metric-value');
+            metricValues.forEach(function(metric) {
+                metric.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                });
+                metric.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Simple print functionality
+            const printButton = document.createElement('button');
+            printButton.textContent = 'Print Report';
+            printButton.className = 'print-button';
+            printButton.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; z-index: 1000;';
+            printButton.addEventListener('click', function() {
+                window.print();
+            });
+            document.body.appendChild(printButton);
+        });
+    </script>
+</body>
+</html>

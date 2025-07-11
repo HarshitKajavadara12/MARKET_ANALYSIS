@@ -1,0 +1,370 @@
+# Analysis Parameters Configuration for Market Research System v1.0
+# Configuration for all analysis parameters and methods
+# Created: 2022-02-01
+# Last Updated: 2022-12-20
+
+# General Analysis Settings
+analysis_settings:
+  default_lookback_period: 252  # Trading days (1 year)
+  minimum_data_points: 50
+  confidence_level: 0.95
+  statistical_significance_threshold: 0.05
+  
+# Time Periods for Analysis
+time_periods:
+  short_term: 
+    days: 30
+    label: "1 Month"
+    
+  medium_term:
+    days: 90
+    label: "3 Months"
+    
+  long_term:
+    days: 252
+    label: "1 Year"
+    
+  very_long_term:
+    days: 756
+    label: "3 Years"
+
+# Price Analysis Parameters
+price_analysis:
+  returns_calculation:
+    method: "log_returns"  # simple_returns or log_returns
+    annualization_factor: 252
+    
+  volatility_calculation:
+    method: "standard_deviation"
+    annualization_factor: 252
+    rolling_window: 30
+    
+  trend_analysis:
+    short_trend_period: 20
+    medium_trend_period: 50
+    long_trend_period: 200
+    trend_strength_threshold: 0.02
+    
+  support_resistance:
+    lookback_period: 50
+    minimum_touches: 2
+    proximity_threshold: 0.02  # 2% proximity to level
+
+# Performance Metrics Configuration
+performance_metrics:
+  returns_metrics:
+    - "total_return"
+    - "annualized_return"
+    - "compound_annual_growth_rate"
+    - "average_daily_return"
+    - "geometric_mean_return"
+    
+  risk_metrics:
+    - "volatility"
+    - "maximum_drawdown"
+    - "value_at_risk"
+    - "conditional_value_at_risk"
+    - "beta"
+    - "downside_deviation"
+    
+  risk_adjusted_metrics:
+    - "sharpe_ratio"
+    - "sortino_ratio"
+    - "calmar_ratio"
+    - "information_ratio"
+    - "treynor_ratio"
+    
+  var_calculation:
+    confidence_levels: [0.90, 0.95, 0.99]
+    method: "historical"  # historical, parametric, monte_carlo
+
+# Correlation Analysis Parameters
+correlation_analysis:
+  methods:
+    - "pearson"
+    - "spearman"
+    - "kendall"
+    
+  significance_testing:
+    enabled: true
+    p_value_threshold: 0.05
+    
+  rolling_correlation:
+    enabled: true
+    window_sizes: [30, 60, 90]
+    
+  correlation_thresholds:
+    strong_positive: 0.7
+    moderate_positive: 0.3
+    weak: 0.1
+    moderate_negative: -0.3
+    strong_negative: -0.7
+    
+  heatmap_settings:
+    color_scheme: "RdYlBu_r"
+    cluster_method: "ward"
+    dendrogram: true
+    annotation: true
+
+# Regression Analysis Parameters  
+regression_analysis:
+  linear_regression:
+    include_intercept: true
+    significance_level: 0.05
+    residual_analysis: true
+    
+  multiple_regression:
+    max_variables: 10
+    stepwise_selection: true
+    multicollinearity_threshold: 5.0  # VIF threshold
+    
+  time_series_regression:
+    include_trend: true
+    seasonal_adjustment: false
+    lag_analysis: true
+    max_lags: 5
+
+# Technical Analysis Parameters
+technical_indicators:
+  moving_averages:
+    simple_ma:
+      periods: [5, 10, 20, 50, 100, 200]
+      
+    exponential_ma:
+      periods: [12, 26, 50]
+      
+    weighted_ma:
+      periods: [10, 20]
+      
+  momentum_indicators:
+    rsi:
+      period: 14
+      overbought_threshold: 70
+      oversold_threshold: 30
+      
+    macd:
+      fast_period: 12
+      slow_period: 26
+      signal_period: 9
+      
+    stochastic:
+      k_period: 14
+      d_period: 3
+      overbought_threshold: 80
+      oversold_threshold: 20
+      
+  volatility_indicators:
+    bollinger_bands:
+      period: 20
+      std_multiplier: 2
+      
+    average_true_range:
+      period: 14
+      
+  volume_indicators:
+    volume_sma:
+      period: 20
+      
+    on_balance_volume:
+      enabled: true
+
+# Statistical Tests Configuration
+statistical_tests:
+  normality_tests:
+    - "shapiro_wilk"
+    - "kolmogorov_smirnov"
+    - "jarque_bera"
+    
+  stationarity_tests:
+    - "augmented_dickey_fuller"
+    - "kpss"
+    - "phillips_perron"
+    
+  autocorrelation_tests:
+    - "ljung_box"
+    - "durbin_watson"
+    
+  homoscedasticity_tests:
+    - "breusch_pagan"
+    - "white_test"
+
+# Outlier Detection Parameters
+outlier_detection:
+  methods:
+    - "z_score"
+    - "iqr_method"
+    - "isolation_forest"
+    
+  z_score_threshold: 3.0
+  iqr_multiplier: 1.5
+  isolation_forest_contamination: 0.1
+  
+  handling_method: "flag"  # flag, remove, winsorize
+
+# Market Regime Analysis
+market_regime:
+  bull_market_threshold: 0.20  # 20% gain from trough
+  bear_market_threshold: -0.20  # 20% decline from peak
+  correction_threshold: -0.10   # 10% decline
+  
+  trend_classification:
+    strong_uptrend: 0.15
+    uptrend: 0.05
+    sideways_upper: 0.02
+    sideways_lower: -0.02
+    downtrend: -0.05
+    strong_downtrend: -0.15
+
+# Comparative Analysis Settings
+comparative_analysis:
+  benchmark_comparison:
+    enabled: true
+    default_benchmarks:
+      - "SPY"  # S&P 500
+      - "QQQ"  # NASDAQ 100
+      - "IWM"  # Russell 2000
+      
+  peer_comparison:
+    enabled: true
+    sector_analysis: true
+    size_analysis: true
+    
+  relative_strength:
+    calculation_method: "price_ratio"
+    smoothing_period: 10
+
+# Seasonality Analysis
+seasonality_analysis:
+  monthly_patterns:
+    enabled: true
+    minimum_years: 3
+    
+  day_of_week_effect:
+    enabled: true
+    minimum_observations: 100
+    
+  calendar_anomalies:
+    january_effect: true
+    end_of_month_effect: true
+    holiday_effects: true
+
+# Economic Analysis Integration
+economic_indicators:
+  default_indicators:
+    - "GDP"
+    - "INFLATION"
+    - "UNEMPLOYMENT"
+    - "INTEREST_RATES"
+    - "CONSUMER_CONFIDENCE"
+    
+  correlation_analysis:
+    enabled: true
+    lag_analysis: true
+    max_lags: 12  # months
+    
+  leading_indicators:
+    - "YIELD_CURVE"
+    - "CONSUMER_CONFIDENCE"
+    - "LEADING_ECONOMIC_INDEX"
+
+# Report Generation Settings
+reporting:
+  default_format: "pdf"
+  include_charts: true
+  chart_style: "seaborn"
+  
+  sections:
+    executive_summary: true
+    price_analysis: true
+    technical_analysis: true
+    statistical_summary: true
+    risk_analysis: true
+    comparative_analysis: true
+    conclusions: true
+    
+  chart_settings:
+    figure_size: [12, 8]
+    dpi: 300
+    color_palette: "viridis"
+    grid: true
+    
+  table_formatting:
+    decimal_places: 4
+    percentage_format: true
+    thousands_separator: true
+
+# Data Quality Checks
+data_quality:
+  missing_data_threshold: 0.05  # 5% maximum missing data
+  gap_detection:
+    enabled: true
+    max_gap_days: 7
+    
+  price_validation:
+    max_daily_change: 0.50  # 50% max daily change
+    zero_volume_check: true
+    negative_price_check: true
+    
+  consistency_checks:
+    ohlc_validation: true
+    volume_validation: true
+    split_adjustment_check: true
+
+# Performance Optimization
+performance:
+  parallel_processing:
+    enabled: false  # Basic version - single threaded
+    max_workers: 1
+    
+  caching:
+    enabled: true
+    cache_directory: "cache/"
+    cache_expiry_hours: 24
+    
+  memory_management:
+    chunk_size: 1000
+    garbage_collection: true
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file_output: true
+  log_directory: "logs/"
+  log_filename: "analysis_{date}.log"
+  
+  log_sections:
+    data_loading: true
+    calculations: true
+    errors: true
+    warnings: true
+    performance: true
+
+# Version Information
+version_info:
+  system_version: "1.0"
+  config_version: "1.0.0"
+  created_date: "2022-02-01"
+  last_updated: "2022-12-20"
+  author: "Market Research System"
+  compatible_python_versions: ["3.8", "3.9", "3.10"]
+  
+# Dependencies for Version 1
+required_packages:
+  core:
+    - "pandas>=1.3.0"
+    - "numpy>=1.21.0"
+    - "matplotlib>=3.4.0"
+    - "seaborn>=0.11.0"
+    
+  analysis:
+    - "scipy>=1.7.0"
+    - "statsmodels>=0.12.0"
+    - "ta-lib>=0.4.0"
+    
+  data_sources:
+    - "yfinance>=0.1.63"
+    - "fredapi>=0.4.3"
+    
+  utilities:
+    - "pyyaml>=5.4.0"
+    - "python-dateutil>=2.8.0"

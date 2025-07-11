@@ -1,0 +1,157 @@
+# Market Research System v1.0 - Logging Configuration
+# Created: January 2022
+# Updated: December 2022
+
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  
+  detailed:
+    format: '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(funcName)s() - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  
+  simple:
+    format: '%(levelname)s - %(message)s'
+  
+  json:
+    format: '{"timestamp": "%(asctime)s", "logger": "%(name)s", "level": "%(levelname)s", "message": "%(message)s", "module": "%(module)s", "function": "%(funcName)s"}'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: standard
+    stream: ext://sys.stdout
+  
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/application/app.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 10
+    encoding: utf8
+  
+  error_file:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: logs/application/errors.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+    encoding: utf8
+  
+  data_collection_file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/application/data_collection.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 10
+    encoding: utf8
+  
+  analysis_file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/application/analysis.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 10
+    encoding: utf8
+  
+  reporting_file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/application/reporting.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 10
+    encoding: utf8
+  
+  performance_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: logs/system/performance.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 15
+    encoding: utf8
+  
+  api_calls_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: logs/system/api_calls.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 20
+    encoding: utf8
+
+loggers:
+  src.data:
+    level: DEBUG
+    handlers: [data_collection_file, console]
+    propagate: false
+  
+  src.analysis:
+    level: DEBUG
+    handlers: [analysis_file, console]
+    propagate: false
+  
+  src.reporting:
+    level: DEBUG
+    handlers: [reporting_file, console]
+    propagate: false
+  
+  src.utils:
+    level: INFO
+    handlers: [file, console]
+    propagate: false
+  
+  performance:
+    level: INFO
+    handlers: [performance_file]
+    propagate: false
+  
+  api_calls:
+    level: INFO
+    handlers: [api_calls_file]
+    propagate: false
+  
+  errors:
+    level: ERROR
+    handlers: [error_file, console]
+    propagate: false
+
+root:
+  level: INFO
+  handlers: [file, console, error_file]
+
+# Logging levels for third-party libraries
+third_party_levels:
+  urllib3: WARNING
+  requests: WARNING
+  matplotlib: WARNING
+  pandas: WARNING
+  yfinance: INFO
+  fredapi: INFO
+
+# Custom logging settings
+custom_settings:
+  log_sql_queries: false
+  log_api_responses: false  # Set to true for debugging
+  log_performance_metrics: true
+  log_memory_usage: true
+  compress_old_logs: true
+  email_critical_errors: false  # Configure email settings separately
+  
+# Archive settings
+archive:
+  enabled: true
+  after_days: 30
+  compress: true
+  archive_path: logs/archived/

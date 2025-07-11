@@ -1,0 +1,24 @@
+[Unit]
+Description=Market Research System - Maintenance and Cleanup Timer
+Documentation=https://github.com/your-username/market-research-v1
+Requires=market-research.service
+
+[Timer]
+# Run maintenance tasks daily at 2:00 AM (Indian time)
+OnCalendar=*-*-* 02:00:00
+# Run weekly deep cleanup on Sundays at 1:00 AM
+OnCalendar=Sun *-*-* 01:00:00
+# Run monthly backup on the 1st of every month at 12:00 AM
+OnCalendar=*-*-01 00:00:00
+
+# Timezone for Indian operations
+Timezone=Asia/Kolkata
+
+# Timer settings
+Persistent=true
+AccuracySec=5min
+RandomizedDelaySec=600
+WakeSystem=false
+
+[Install]
+WantedBy=timers.target

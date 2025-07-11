@@ -1,0 +1,26 @@
+version: '3.8'
+
+# Market Research System v1.0 - Docker Compose Configuration
+# Complete containerized environment for development and production
+
+services:
+  # Main application service
+  market-research:
+    build:
+      context: ../..
+      dockerfile: tools/deployment/docker/Dockerfile
+      args:
+        BUILD_DATE: ${BUILD_DATE:-2022-01-01}
+        VERSION: ${VERSION:-1.0}
+        VCS_REF: ${VCS_REF:-main}
+    container_name: market-research-app
+    restart: unless-stopped
+    environment:
+      - MARKET_RESEARCH_ENV=${ENVIRONMENT:-production}
+      - DATABASE_URL=sqlite:///app/data/market_research.db
+      - REDIS_URL=redis://redis:6379/0
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - TZ=${TIMEZONE:-Asia/Kolkata}
+      # API Keys (set in .env file)
+
+      not complted

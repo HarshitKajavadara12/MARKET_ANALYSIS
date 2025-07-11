@@ -1,0 +1,40 @@
+[Unit]
+Description=Market Research System - Maintenance and Cleanup Service
+Documentation=https://github.com/your-username/market-research-v1
+After=network.target
+PartOf=market-research.service
+
+[Service]
+Type=oneshot
+User=market-research
+Group=market-research
+WorkingDirectory=/opt/market-research-v1
+Environment=PYTHONPATH=/opt/market-research-v1/src
+Environment=MARKET_RESEARCH_ENV=production
+Environment=MARKET_RESEARCH_CONFIG=/opt/market-research-v1/config
+Environment=MARKET_RESEARCH_DATA=/opt/market-research-v1/data
+Environment=MARKET_RESEARCH_LOGS=/opt/market-research-v1/logs
+
+# System health check
+ExecStartPre=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/maintenance/system_health_check.py
+# Clean up old data files (keep last 90 days for daily data, 2 years for historical)
+ExecStart=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/maintenance/cleanup_old_data.py --days=90
+# Backup critical data
+ExecStart=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/maintenance/backup_data.py
+# Archive old reports (keep last 30 days active, archive older)
+ExecStartPost=/opt/market-research-v1/venv/bin/python /opt/market-research-v1/scripts/maintenance/archive_reports.py --archive-days=30
+# Log rotation and cleanup
+ExecStartPost=/bin/journalctl --vacuum-time=30d --vacuum-size=500M
+
+TimeoutStartSec=7200
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=market-research-maintenance
+
+# Resource limits for maintenance tasks
+MemoryMax=1G
+CPUQuota=50%
+IOWeight=10
+
+[Install]
+WantedBy=market-research.service
